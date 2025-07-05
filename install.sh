@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+OndeEstou=`pwd`
+
 verficarDependencias () {
+	echo -e "\n## Verificando Dependências..."
 	install=""
 	## Verificando se as Dependências estão instaladas
 
@@ -78,6 +81,14 @@ verficarDependencias () {
 			echo "- XFCE Power Manager: OK"
 	fi
 
+	## PyWal
+	if [ -z "$(command -v wal)" ]; then
+			echo "- PyWal: Não Instalado"
+			install+="python-pywal "
+		else
+			echo "- PyWal: OK"
+	fi
+
 	echo -e "\n=== APLICATIVOS BÁSICOS ==="
 
 	## Thunar
@@ -124,13 +135,13 @@ verficarDependencias () {
 
 }
 
-instalarAUR () {
-	instalarDependenciasAUR () {
-		echo -e "\n## Instalando as Dependências do AUR..."
-		yay $install --answerdiff=None --noconfirm
-	}
+instalarDependenciasAUR () {
+	echo -e "\n## Instalando as Dependências do AUR..."
+	yay $install --answerdiff=None --noconfirm
+}
 
-	if [[ $installAUR == "" ]]; then
+instalarAUR () {
+	if [[ $AURinstall == "" ]]; then
 		echo "" >> /dev/null
 	else
 
@@ -140,8 +151,6 @@ instalarAUR () {
 			read -p "O Yay não foi encontrado. Deseja instalar o yay? [S/n]: " iYay
 
 			if [[ $iYay == "S" ]]; then
-				mkdir Temp
-				cd Temp
 				echo -e "\n## Instalando as Dependências do Yay..."
 				sudo pacman -S git go --noconfirm
 
@@ -151,8 +160,6 @@ instalarAUR () {
 
 				echo -e "\n## Instalando o Yay"
 				makepkg -si
-				cd ..
-				cd ..
 				instalarDependenciasAUR
 			else
 				echo -e "\n## Ignorando os Pacotes do AUR..."
@@ -174,36 +181,31 @@ instalarDependencias () {
 
 instalarFontes () {
 	echo -e "Para o Nippybox, são utilizadas algumas fontes para a Interface. E elas serão instaladas globalmente em /usr/share/fonts."
-	cd fonts
-	sudo cp * /usr/share/fonts
-	sudo fc-cache
+	sudo cp fonts/* /usr/share/fonts
+	sudo fc-cache -vf
 	cd ..
 }
 
 copiarConfigs () {
 	echo -e "\n## Copiando as Configurações..."
-	cd config
-	cp -r * $HOME/.config
+	cp -r config/* $HOME/.config
 	cd ..
 
 	echo "## Copiando Temas..."
-	cd themes
-	cp -r * $HOME/.themes
+	cp -r themes/* $HOME/.themes
 
 	echo "## Copiando Scripts..."
-	cd scripts
-	cp -r * $HOME/.local/bin
+	cp -r scripts/* $HOME/.local/bin
 
 }
 
 echo -e "Bem-vindo ao instalador do Nippybox!\nO Nippybox é uma personalização do Openbox que acabei criando e que atende às minhas necessidades\n\nEventualmente o Script irá pedir a senha do super-usuário (root) para instalar alguns pacotes faltantes e as fontes, mas não se preocupe."
 sleep 1
-echo -e "\n## Verificando Dependências..."
 verficarDependencias
 instalarDependencias
-instalarAUR
-#instalarFontes
+instalarFontes
 copiarConfigs
+instalarAUR
 
 
 
