@@ -3,25 +3,9 @@
 OndeEstou=`pwd`
 
 verificarDiretorios () {
-
-	if [ -d "$HOME/.local/bin" ]; then
-		mkdir -p $HOME/.local/bin
-	else
-		echo "" > /dev/null
-	fi
-
-	if [ -d "$HOME/.config" ]; then
-		mkdir -p $HOME/.config
-	else
-		echo "" > /dev/null
-	fi
-
-
-	if [ -d "$HOME/.themes/Nippybox" ]; then
-		mkdir -p $HOME/.themes/Nippybox
-	else
-		echo "" > /dev/null
-	fi
+	mkdir -p $HOME/.local/bin
+	mkdir -p $HOME/.config
+	mkdir -p $HOME/.themes/Nippybox
 }
 
 verificarDependencias () {
