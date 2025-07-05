@@ -2,11 +2,21 @@
 
 OndeEstou=`pwd`
 
-if [ -z "$HOME/.local/bin" ]; then ## Verificando se a Variável da Pasta existe no Arquivo
-	mkdir -p $HOME/.local/bin
-else
-	echo "" > /dev/null
-fi
+verificarDiretorios () {
+
+	if [ -d "$HOME/.local/bin" ]; then
+		mkdir -p $HOME/.local/bin
+	else
+		echo "" > /dev/null
+	fi
+
+	if [ -d "$HOME/.config" ]; then
+		mkdir -p $HOME/.config
+	else
+		echo "" > /dev/null
+	fi
+
+}
 
 verificarDependencias () {
 	echo -e "\n## Verificando Dependências..."
@@ -194,14 +204,14 @@ instalarFontes () {
 
 copiarConfigs () {
 	echo -e "\n## Copiando as Configurações..."
-	cp -r $OndeEstou/config/* $HOME/.config
+	cp -r $OndeEstou/config/* $HOME/.config/
 	cd ..
 
 	echo "## Copiando Temas..."
-	cp -r $OndeEstou/themes/* $HOME/.themes
+	cp -r $OndeEstou/themes/* $HOME/.themes/
 
 	echo "## Copiando Scripts..."
-	cp -r scripts/* $HOME/.local/bin
+	cp -r $OndeEstou/scripts/* $HOME/.local/bin/
 
 }
 
