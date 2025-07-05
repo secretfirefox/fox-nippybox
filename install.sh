@@ -2,7 +2,13 @@
 
 OndeEstou=`pwd`
 
-verficarDependencias () {
+if [ -z "$HOME/.local/bin" ]; then ## Verificando se a Variável da Pasta existe no Arquivo
+	mkdir -p $HOME/.local/bin
+else
+	echo "" > /dev/null
+fi
+
+verificarDependencias () {
 	echo -e "\n## Verificando Dependências..."
 	install=""
 	## Verificando se as Dependências estão instaladas
@@ -124,14 +130,14 @@ verficarDependencias () {
 			echo "- Blueman Applet: OK"
 	fi
 
-	echo -e "\n=== PACOTES DO AUR ==="
-	## betterlockscreen (AUR)
-	if [ -z "$(command -v betterlockscreen)" ]; then
-			echo "- betterlockscreen: Não Instalado"
-			AURinstall+="betterlockscreen "
-		else
-			echo "- betterlockscreen: OK"
-	fi
+# 	echo -e "\n=== PACOTES DO AUR ==="
+# 	## betterlockscreen (AUR)
+# 	if [ -z "$(command -v betterlockscreen)" ]; then
+# 			echo "- betterlockscreen: Não Instalado"
+# 			AURinstall+="betterlockscreen "
+# 		else
+# 			echo "- betterlockscreen: OK"
+# 	fi
 
 }
 
@@ -140,35 +146,35 @@ instalarDependenciasAUR () {
 	yay $install --answerdiff=None --noconfirm
 }
 
-instalarAUR () {
-	if [[ $AURinstall == "" ]]; then
-		echo "" >> /dev/null
-	else
-
-		echo -e "\nHá alguns pacotes que compõe o Nippybox que estão no AUR (Arch Linux User Repository), e para instalar eles é necessário o uso de um ajudante de AUR. O yay é o Ajudante de AUR que esse Script utiliza."
-
-		if [ -z "$(command -v yay)" ]; then
-			read -p "O Yay não foi encontrado. Deseja instalar o yay? [S/n]: " iYay
-
-			if [[ $iYay == "S" ]]; then
-				echo -e "\n## Instalando as Dependências do Yay..."
-				sudo pacman -S git go --noconfirm
-
-				echo -e "\n## Clonando o Repositório do Yay..."
-				git clone https://aur.archlinux.org/yay.git
-				cd yay
-
-				echo -e "\n## Instalando o Yay"
-				makepkg -si
-				instalarDependenciasAUR
-			else
-				echo -e "\n## Ignorando os Pacotes do AUR..."
-			fi
-		else
-			instalarDependenciasAUR
-		fi
-	fi
-}
+# instalarAUR () {
+# 	if [[ $AURinstall == "" ]]; then
+# 		echo "" >> /dev/null
+# 	else
+#
+# 		echo -e "\nHá alguns pacotes que compõe o Nippybox que estão no AUR (Arch Linux User Repository), e para instalar eles é necessário o uso de um ajudante de AUR. O yay é o Ajudante de AUR que esse Script utiliza."
+#
+# 		if [ -z "$(command -v yay)" ]; then
+# 			read -p "O Yay não foi encontrado. Deseja instalar o yay? [S/n]: " iYay
+#
+# 			if [[ $iYay == "S" ]]; then
+# 				echo -e "\n## Instalando as Dependências do Yay..."
+# 				sudo pacman -S git go --noconfirm
+#
+# 				echo -e "\n## Clonando o Repositório do Yay..."
+# 				git clone https://aur.archlinux.org/yay.git
+# 				cd yay
+#
+# 				echo -e "\n## Instalando o Yay"
+# 				makepkg -si
+# 				instalarDependenciasAUR
+# 			else
+# 				echo -e "\n## Ignorando os Pacotes do AUR..."
+# 			fi
+# 		else
+# 			instalarDependenciasAUR
+# 		fi
+# 	fi
+# }
 
 instalarDependencias () {
 	if [[ $install == "" ]]; then
@@ -188,11 +194,11 @@ instalarFontes () {
 
 copiarConfigs () {
 	echo -e "\n## Copiando as Configurações..."
-	cp -r config/* $HOME/.config
+	cp -r $OndeEstou/config/* $HOME/.config
 	cd ..
 
 	echo "## Copiando Temas..."
-	cp -r themes/* $HOME/.themes
+	cp -r $OndeEstou/themes/* $HOME/.themes
 
 	echo "## Copiando Scripts..."
 	cp -r scripts/* $HOME/.local/bin
@@ -201,11 +207,11 @@ copiarConfigs () {
 
 echo -e "Bem-vindo ao instalador do Nippybox!\nO Nippybox é uma personalização do Openbox que acabei criando e que atende às minhas necessidades\n\nEventualmente o Script irá pedir a senha do super-usuário (root) para instalar alguns pacotes faltantes e as fontes, mas não se preocupe."
 sleep 1
-verficarDependencias
+verificarDependencias
 instalarDependencias
 instalarFontes
 copiarConfigs
-instalarAUR
+# instalarAUR
 
 
 
