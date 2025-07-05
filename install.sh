@@ -5,7 +5,7 @@ OndeEstou=`pwd`
 verificarDiretorios () {
 	mkdir -p $HOME/.local/bin
 	mkdir -p $HOME/.config
-	mkdir -p $HOME/.themes/Nippybox
+	mkdir -p $HOME/.themes/nippybox
 }
 
 verificarDependencias () {
@@ -198,7 +198,7 @@ copiarConfigs () {
 	cd ..
 
 	echo "## Copiando Temas..."
-	cp -r $OndeEstou/themes/* $HOME/.themes/Nippybox
+	cp -r $OndeEstou/themes/* $HOME/.themes/
 
 	echo "## Copiando Scripts..."
 	cp -r $OndeEstou/scripts/* $HOME/.local/bin/
