@@ -16,6 +16,12 @@ verificarDiretorios () {
 		echo "" > /dev/null
 	fi
 
+
+	if [ -d "$HOME/.themes/Nippybox" ]; then
+		mkdir -p $HOME/.themes/Nippybox
+	else
+		echo "" > /dev/null
+	fi
 }
 
 verificarDependencias () {
@@ -208,7 +214,7 @@ copiarConfigs () {
 	cd ..
 
 	echo "## Copiando Temas..."
-	cp -r $OndeEstou/themes/* $HOME/.themes/
+	cp -r $OndeEstou/themes/* $HOME/.themes/Nippybox
 
 	echo "## Copiando Scripts..."
 	cp -r $OndeEstou/scripts/* $HOME/.local/bin/
@@ -216,6 +222,7 @@ copiarConfigs () {
 }
 
 echo -e "Bem-vindo ao instalador do Nippybox!\nO Nippybox é uma personalização do Openbox que acabei criando e que atende às minhas necessidades\n\nEventualmente o Script irá pedir a senha do super-usuário (root) para instalar alguns pacotes faltantes e as fontes, mas não se preocupe."
+verificarDiretorios
 sleep 1
 verificarDependencias
 instalarDependencias
