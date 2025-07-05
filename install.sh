@@ -17,7 +17,7 @@ verificarDependencias () {
 	## Openbox, xorg, obconf-qt
 	if [ -z "$(command -v openbox)" ]; then
 			echo "- Openbox: Não Instalado"
-			install+="openbox xorg obconf-qt "
+			install+="openbox xorg obconf-qt archlinux-xdg-menu "
 		else
 			echo "- Openbox: OK"
 	fi
@@ -111,6 +111,22 @@ verificarDependencias () {
 			install+="alacritty "
 		else
 			echo "- Alacritty: OK"
+	fi
+
+	## Geany
+	if [ -z "$(command -v geany)" ]; then
+			echo "- Geany: Não Instalado"
+			install+="geany "
+		else
+			echo "- Geany: OK"
+	fi
+
+	##  Pulse Audio Volume Control
+	if [ -z "$(command -v pavucontrol)" ]; then
+			echo "-  Pulse Audio Volume Control: Não Instalado"
+			install+="pavucontrol "
+		else
+			echo "-  Pulse Audio Volume Control: OK"
 	fi
 
 	echo -e "\n=== APPLETS ==="
