@@ -2,6 +2,11 @@
 
 OndeEstou=`pwd`
 
+creditos () {
+	echo -e "\nCréditos a Aditya Shakya, que foi o responsável pelas personalizações do Rofi, da Polybar e dos seguintes Scripts:\n\n	- nippy-shot: Originalmente era o ob-shot, mas foi modificado para também ter a função de ser um Pipemenu\n	- nippy-rec: Originalmente era o ac-record, e foi modificado para trabalhar como um gravador simples por linha de comando\n	- ac-randr: Não foi modificado.\n	- nippy-sysinfo: Originalmente era o ac-sysinfo e foi modificado para trabalhar como um simples fetch.\n"
+
+}
+
 verificarDiretorios () {
 	mkdir -p $HOME/.local/bin
 	mkdir -p $HOME/.config
@@ -118,6 +123,22 @@ verificarDependencias () {
 			install+="slop "
 		else
 			echo "- Slop: OK"
+	fi
+
+	## XDG Users Dirs
+	if [ -z "$(command -v xdg-user-dir)" ]; then
+			echo "- XDG Users Dirs: Não Instalado"
+			install+="xdg-user-dirs "
+		else
+			echo "- XDG Users Dirs: OK"
+	fi
+
+	## FFMPEG
+	if [ -z "$(command -v ffmpeg)" ]; then
+			echo "- FFMPEG: Não Instalado"
+			install+="ffmpeg "
+		else
+			echo "- FFMPEG: OK"
 	fi
 
 	echo -e "\n=== APLICATIVOS BÁSICOS ==="
@@ -252,8 +273,17 @@ copiarConfigs () {
 	echo "## Copiando Scripts..."
 	cp -r $OndeEstou/scripts/* $HOME/.local/bin/
 	chmod +x $HOME/.local/bin/*
-
 }
+
+finalizarConfig () {
+	echo "## Gerando as pastas do Usuário"
+	xdg-user-dirs-update
+
+	echo "## Aplicando o Esquema de Cores e o Papel de Parede"
+	nippy-colorizer $HOME/.config/openbox/wallpaper.jpg
+}
+
+
 
 echo -e "Bem-vindo ao instalador do Nippybox!\nO Nippybox é uma personalização do Openbox que acabei criando e que atende às minhas necessidades\n\nEventualmente o Script irá pedir a senha do super-usuário (root) para instalar alguns pacotes faltantes e as fontes, mas não se preocupe."
 verificarDiretorios
@@ -263,6 +293,7 @@ instalarDependencias
 instalarFontes
 copiarConfigs
 # instalarAUR
+creditos
 
 
 
