@@ -10,9 +10,9 @@ verificarDiretorios () {
 }
 
 instalarPacotes () {
-	echo -e "\n## Instalando Pacotes..."
+	echo -e "\n## Instalando Pacotes Básicos..."
 	sleep 1
-	sudo pacman -Syu openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight --noconfirm
+	sudo pacman -Syu openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa --noconfirm
 }
 
 instalarFontes () {
@@ -62,10 +62,19 @@ EOF
 		cat <<EOF
 #!/bin/bash
 
+XDG_SESSION_TYPE=x11
 exec openbox-session
 
 EOF
 	} > $HOME/.xinitrc
+}
+
+instalarExtras () {
+	echo "## Instalando Pacotes Extras..."
+	sudo pacman -S lightdm lightdm-gtk-greeter parcellite galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unar unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox --noconfirm
+
+	echo "## Instalando Suporte ao Flatpak..."
+	sudo pacman -S flatpak xdg-desktop-portal-gtk
 }
 
 creditos () {
