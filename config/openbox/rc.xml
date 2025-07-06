@@ -800,9 +800,9 @@
   <keybind key="W-m">
     <action name="Execute">
       <command>rofi-music</command>
-    </action>-->
+    </action>
+  </keybind>-->
 
-  </keybind>
   <keybind key="W-x">
     <action name="Execute">
       <command>rofi-powermenu</command>
