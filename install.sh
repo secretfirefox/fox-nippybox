@@ -42,8 +42,9 @@ finalizarConfig () {
 	bash $HOME/.local/bin/nippy-colorizer $HOME/.config/openbox/wallpaper.jpg
 
 	echo "## Configurando o Wallpaper Padrão..."
-{
-	cat <<EOF
+
+	{
+		cat <<EOF
 
 [xin_-1]
 file=$HOME/.config/openbox/wallpaper.jpg
@@ -52,11 +53,12 @@ bgcolor=#000000
 
 EOF
 	} > $HOME/.config/nitrogen/bg-saved.cfg
-}
+
 
 	echo "## Gerando o .xinitrc..."
-{
-	cat <<EOF
+
+	{
+		cat <<EOF
 #!/bin/bash
 
 exec openbox-session
