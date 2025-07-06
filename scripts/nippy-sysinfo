@@ -28,6 +28,29 @@ menuItem "  WIFI       :  $interface ∙ $status ∙ $ssid" 'echo'
 menuEnd
 }
 
+getBrightness () {
+    CARD=$(ls /sys/class/backlight | head -n 1)
+	if [ -z "$(command -v xbacklight)" ]; then
+		if [ -e "/sys/class/backlight/$CARD/brightness" ]; then
+			b_value=$(cat /sys/class/backlight/$CARD/brightness)
+			echo "$(($b_value/255))"
+		else
+			echo "N/A"
+		fi
+	else
+		# Get brightness
+		get_backlight() {
+			if [[ "$CARD" == *"intel_"* ]]; then
+				BNESS=$(xbacklight -get)
+				LIGHT=${BNESS%.*}
+			else
+				LIGHT=$(printf "%.0f\n" `light -G`)
+			fi
+			echo "${LIGHT}%"
+		}
+	fi
+}
+
 ##-- OS ------------------------
 os=`uname -o`
 
@@ -63,9 +86,7 @@ b_perc=`acpi -b | grep Battery | cut -d' ' -f4 | tr -d ,`
 b_cap=`acpi -i | tail -n1 | cut -d'=' -f2 | tr -d "[:blank:]"`
 
 ##-- BACKLIGHT ------------------------
-g_card=`ls /sys/class/backlight | head -n1`
-b_value=`cat /sys/class/backlight/$g_card/brightness`
-backlight="$(($b_value*100/255))%"
+backlight="$(getBrightness)%"
 
 ##-- UPTIME ------------------------
 uptime=`uptime -p | awk '{print $2 " " $3 " " $4 " " $5}'`
@@ -84,5 +105,14 @@ ssid=`nmcli device status | grep "wifi" | tr -s '[:blank:]' | cut -d' ' -f4`
 if [[ "$1" == "--pipe" ]]; then
 	pipemenu
 else
-    echo -e " $USER@$HOSTNAME |   `date +'%I:%M %p, %b %d %G'` \n\n  OS         :  $distro ∙ $os ∙ $machine\n  KERNEL     :  $kernel\n  CPU        : $cpu \n  MEMORY     :  $m_used ∙ $m_free ∙ $m_total \n  SWAP       :  $s_used ∙ $s_free ∙ $s_total ∙ $swappiness\n  INIT       :  $init\n  BATTERY    :  $b_perc ∙ $b_stat ∙ Capacity, $b_cap\n  BACKLIGHT  :  $backlight \n  UPTIME     :  $uptime\n"
+    echo -e "\n $USER@$HOSTNAME |   It's `date +'%I:%M %p on %d %b %G'` \n"
+    echo "  OS         :  $distro ∙ $os ∙ $machine"
+    echo "  KERNEL     :  $kernel"
+    echo "  CPU        : $cpu "
+    echo "  MEMORY     :  $m_used ∙ $m_free ∙ $m_total"
+    echo "  SWAP       :  $s_used ∙ $s_free ∙ $s_total ∙ $swappiness"
+    echo "  INIT       :  $init"
+    echo "  BATTERY    :  $b_perc ∙ $b_stat ∙ Capacity, $b_cap"
+    echo "  BACKLIGHT  :  $backlight"
+    echo -e "\n  UPTIME     :  $uptime\n"
 fi

@@ -11,7 +11,7 @@ verificarDiretorios () {
 instalarPacotes () {
 	echo -e "\n## Instalando Pacotes..."
 	sleep 1
-	sudo pacman -Syu openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs --noconfirm
+	sudo pacman -Syu openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xbacklight --noconfirm
 }
 
 instalarFontes () {
@@ -41,6 +41,7 @@ finalizarConfig () {
 	echo "## Aplicando o Esquema de Cores"
 	bash $HOME/.local/bin/nippy-colorizer $HOME/.config/openbox/wallpaper.jpg
 
+	echo "## Configurando o Wallpaper Padrão..."
 {
 	cat <<EOF
 
@@ -52,8 +53,6 @@ bgcolor=#000000
 EOF
 	} > $HOME/.config/nitrogen/bg-saved.cfg
 }
-
-
 
 	echo "## Gerando o .xinitrc..."
 {

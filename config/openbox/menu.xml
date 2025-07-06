@@ -65,10 +65,10 @@
 				</item>
 			</menu>
 			<!--<menu id="CompositingPipeMenu" execute="&pipes;/ac-compositor" label="Compositor"/>
-			<menu id="PanelPipeMenu" execute="&pipes;/ac-panel" label="Panel / Bar"/>
-			<menu id="XrandrPipeMenu" execute="&pipes;/ac-randr" label="Display / Monitor"/>
+			<menu id="PanelPipeMenu" execute="&pipes;/ac-panel" label="Panel / Bar"/>-->
+			<menu id="XrandrPipeMenu" execute="ac-randr" label="Display/Monitor"/>
 			<separator/>
-			<menu id="StylePipeMenu" execute="&pipes;/ac-change-style" label="Change Style"/>
+			<!--<menu id="StylePipeMenu" execute="&pipes;/ac-change-style" label="Change Style"/>
 			<menu id="FontPipeMenu" execute="&pipes;/ac-change-fonts" label="Change Font"/>
 			<menu id="SchemePipeMenu" execute="&pipes;/ac-change-scheme" label="Terminal Colors"/>
 			<separator/>-->
@@ -115,38 +115,11 @@
 			</item>
 		</menu>
 		<separator/>
-		<menu id="Exit" label="System">
-			<item label="Log Out">
-				<action name="Execute">
-					<command>rofi-powermenu</command>
-				</action>
-			</item>
-				<!--<item label="Lock">
-					<action name="Execute">
-						<command>betterlockscreen --lock</command>
-					</action>
-				</item>
-				<item label="Logout">
-					<action name="Execute">
-						<command>&pipes;/ac-powermenu --logout</command>
-					</action>
-				</item>
-				<item label="Suspend">
-					<action name="Execute">
-						<command>&pipes;/ac-powermenu --suspend</command>
-					</action>
-				</item>
-				<item label="Reboot">
-					<action name="Execute">
-						<command>&pipes;/ac-powermenu --reboot</command>
-					</action>
-				</item>
-				<item label="Shutdown">
-					<action name="Execute">
-						<command>&pipes;/ac-powermenu --shutdown</command>
-					</action>
-				</item>-->
-		</menu>
+		<item label="Log Out">
+			<action name="Execute">
+				<command>rofi-powermenu</command>
+			</action>
+		</item>
 	</menu>
 </openbox_menu>
 <!-- vim:sw=2
