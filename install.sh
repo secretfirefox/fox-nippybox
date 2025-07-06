@@ -141,6 +141,14 @@ verificarDependencias () {
 			echo "- FFMPEG: OK"
 	fi
 
+	## ACPI
+	if [ -z "$(command -v acpi)" ]; then
+			echo "- ACPI: Não Instalado"
+			install+="acpi "
+		else
+			echo "- ACPI: OK"
+	fi
+
 	echo -e "\n=== APLICATIVOS BÁSICOS ==="
 
 	## Thunar
@@ -281,6 +289,15 @@ finalizarConfig () {
 
 	echo "## Aplicando o Esquema de Cores e o Papel de Parede"
 	nippy-colorizer $HOME/.config/openbox/wallpaper.jpg
+
+{
+	cat <<EOF
+	#!/bin/bash
+
+	exec openbox-session
+
+EOF
+	} > $HOME/.xinitrc
 }
 
 
@@ -294,6 +311,8 @@ instalarFontes
 copiarConfigs
 # instalarAUR
 creditos
+sleep 5
+startx
 
 
 
