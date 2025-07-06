@@ -5,7 +5,7 @@
 ]>
 <openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/  file:///usr/share/openbox/menu.xsd">
   <menu id="root-menu" title="Menu" label="Openbox 3">
-<!--	<separator label="Main Menu"/>  -->
+		<separator label="Apps"/>
 		<item label="Terminal Emulator">
 			<action name="Execute">
 				<command>alacritty</command>
@@ -26,8 +26,13 @@
 				<command>geany</command>
 			</action>
 		</item>
-		<separator/>
-		<menu id="applications" label="Applications" execute="xdg_menu --format openbox3-pipe --root-menu /etc/xdg/menus/arch-applications.menu" />
+		<menu id="applications" label="All Applications" execute="xdg_menu --format openbox3-pipe --root-menu /etc/xdg/menus/arch-applications.menu" />
+		<!--<separator/>-->
+		<separator label="Screen Capture"/>
+		<menu id="shots" execute="nippy-shot --pipe" label="Screenshot"/>
+		<menu id="rec" execute="nippy-rec --pipe" label="Screen Recorder"/>
+		<!--<separator/>-->
+		<separator label="System"/>
 		<menu id="preferences" label="Preferences">
 			<menu id="obconfig" label="Openbox">
 				<item label="Settings">
@@ -36,9 +41,9 @@
 					</action>
 				</item>
 				<separator/>
-				<!--<item label="Edit menu.xml">
+				<item label="Edit menu.xml">
 					<action name="Execute">
-						<command>exo-open ~/.config/openbox/menu-minimal.xml</command>
+						<command>exo-open ~/.config/openbox/menu.xml</command>
 					</action>
 				</item>
 				<item label="Edit rc.xml">
@@ -50,7 +55,7 @@
 					<action name="Execute">
 						<command>exo-open ~/.config/openbox/autostart</command>
 					</action>
-				</item>-->
+				</item>
 				<separator/>
 				<item label="Reconfigure">
 					<action name="Reconfigure"/>
@@ -112,8 +117,8 @@
 		<separator/>
 		<menu id="Exit" label="System">
 			<item label="Log Out">
-				<action name="Exit">
-					<prompt>yes</prompt>
+				<action name="Execute">
+					<command>rofi-powermenu</command>
 				</action>
 			</item>
 				<!--<item label="Lock">
