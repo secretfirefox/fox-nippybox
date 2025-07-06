@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 ## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
-##
+## Modificado por Rapoelho, para incluir a opção desse Script ser um Pipemenu e para uso no Nippybox
 ## Script to take screenshots on Archcraft.
-## Modificado por Rapoelho, para incluir a opção desse Script ser um Pipemenu
+
 
 # pipemenu
 pipemenu () {
-MENUS_LIBDIR='$HOME/.config/openbox/'
+	MENUS_LIBDIR="$HOME/.config/openbox/"
 	if ! . "$MENUS_LIBDIR/pipebase.cfg" 2> /dev/null; then
 		echo $"Error: Failed to locate pipebase.cfg in $MENUS_LIBDIR" >&2
 		exit 1
