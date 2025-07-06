@@ -10,7 +10,7 @@ dusntFolder="$HOME/.config/dunst"
 
 ### Variáveis do Rofi
 rofiFile="colors.rasi"
-rofiFoler="$HOME/.config/openbox/themes/nippybox/rofi/shared"
+rofiFoler="$HOME/.config/rofi/shared"
 
 ### Tema Openbox
 obThemeFile="themerc"
