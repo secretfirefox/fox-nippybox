@@ -87,12 +87,37 @@ verificarDependencias () {
 			echo "- XFCE Power Manager: OK"
 	fi
 
+	echo -e "\n=== DEPENDÊNCIAS DE SCRIPTS ==="
 	## PyWal
 	if [ -z "$(command -v wal)" ]; then
 			echo "- PyWal: Não Instalado"
 			install+="python-pywal "
 		else
 			echo "- PyWal: OK"
+	fi
+
+	## Maim
+	if [ -z "$(command -v maim)" ]; then
+			echo "- Maim: Não Instalado"
+			install+="maim "
+		else
+			echo "- Maim: OK"
+	fi
+
+	## XClip
+	if [ -z "$(command -v xclip)" ]; then
+			echo "- Xclip: Não Instalado"
+			install+="xclip "
+		else
+			echo "- Xclip: OK"
+	fi
+
+	## XClip
+	if [ -z "$(command -v slop)" ]; then
+			echo "- Slop: Não Instalado"
+			install+="slop "
+		else
+			echo "- Slop: OK"
 	fi
 
 	echo -e "\n=== APLICATIVOS BÁSICOS ==="
@@ -123,10 +148,18 @@ verificarDependencias () {
 
 	##  Pulse Audio Volume Control
 	if [ -z "$(command -v pavucontrol)" ]; then
-			echo "-  Pulse Audio Volume Control: Não Instalado"
+			echo "- Pulse Audio Volume Control: Não Instalado"
 			install+="pavucontrol "
 		else
-			echo "-  Pulse Audio Volume Control: OK"
+			echo "- Pulse Audio Volume Control: OK"
+	fi
+
+	##  Viewnior
+	if [ -z "$(command -v viewnior)" ]; then
+			echo "- Viewnior: Não Instalado"
+			install+="viewnior "
+		else
+			echo "- Viewnior: OK"
 	fi
 
 	echo -e "\n=== APPLETS ==="
@@ -204,7 +237,7 @@ instalarDependencias () {
 instalarFontes () {
 	echo -e "Para o Nippybox, são utilizadas algumas fontes para a Interface. E elas serão instaladas globalmente em /usr/share/fonts."
 	sudo cp fonts/* /usr/share/fonts
-	sudo fc-cache -vf
+	sudo fc-cache -f
 	cd ..
 }
 
@@ -218,6 +251,7 @@ copiarConfigs () {
 
 	echo "## Copiando Scripts..."
 	cp -r $OndeEstou/scripts/* $HOME/.local/bin/
+	chmod +x $HOME/.local/bin/*
 
 }
 
