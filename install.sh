@@ -11,7 +11,7 @@ verificarDiretorios () {
 instalarPacotes () {
 	echo -e "\n## Instalando Pacotes..."
 	sleep 1
-	sudo pacman -Syu openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman --noconfirm
+	sudo pacman -Syu openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs --noconfirm
 }
 
 instalarFontes () {
@@ -38,14 +38,29 @@ finalizarConfig () {
 	echo "## Gerando as pastas do Usuário"
 	xdg-user-dirs-update
 
-	echo "## Aplicando o Esquema de Cores e o Papel de Parede"
+	echo "## Aplicando o Esquema de Cores"
 	bash $HOME/.local/bin/nippy-colorizer $HOME/.config/openbox/wallpaper.jpg
 
 {
 	cat <<EOF
-	#!/bin/bash
 
-	exec openbox-session
+[xin_-1]
+file=$HOME/.config/openbox/wallpaper.jpg
+mode=5
+bgcolor=#000000
+
+EOF
+	} > $HOME/.config/nitrogen/bg-saved.cfg
+}
+
+
+
+	echo "## Gerando o .xinitrc..."
+{
+	cat <<EOF
+#!/bin/bash
+
+exec openbox-session
 
 EOF
 	} > $HOME/.xinitrc
@@ -56,7 +71,8 @@ creditos () {
 
 }
 
-echo -e "Bem-vindo ao instalador do Nippybox!\nO Nippybox é uma personalização do Openbox que acabei fazendo e que atende às minhas necessidades\n\nEventualmente o Script irá pedir a senha do super-usuário (root) para instalar alguns pacotes faltantes e as fontes, mas não se preocupe."
+echo -e "\nBem-vindo ao instalador do Nippybox!\nO Nippybox é uma personalização do Openbox com o objetivo de ser simples de usar em que juntei algumas coisas legais por aí e que me agradaram."
+
 verificarDiretorios
 sleep 1
 instalarPacotes
