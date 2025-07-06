@@ -12,11 +12,11 @@ verificarDiretorios () {
 instalarPacotes () {
 	echo -e "\n## Instalando Pacotes Básicos..."
 	sleep 1
-	sudo pacman -Syu openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa --noconfirm
+	sudo pacman -Syu nano openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa --noconfirm --needed
 }
 
 instalarFontes () {
-	echo -e "\nPara o funcionamento correto do Nippybox,algumas fontes precisam serem instaladas, e elas serão instaladas em /usr/share/fonts, para estarem disponíveis para todos os usuários\n\n## Instalando as Fontes..."
+	echo -e "\n## Instalando as Fontes..."
 	sudo cp fonts/* /usr/share/fonts
 	sudo fc-cache -f
 	cd ..
@@ -72,15 +72,42 @@ EOF
 instalarExtras () {
 	echo "## Instalando Pacotes Extras..."
 	sleep 1
-	sudo pacman -S lightdm lightdm-gtk-greeter parcellite galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unarj unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox --noconfirm
+	sudo pacman -S lightdm lightdm-gtk-greeter parcellite galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unarj unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox gst-plugins-ugly gst-plugins-good gst-plugins-base gst-plugins-bad gst-libav gstreamer ntfs-3g --noconfirm --needed
 
 	echo "## Instalando Suporte ao Flatpak..."
 	sleep 1
-	sudo pacman -S flatpak xdg-desktop-portal-gtk --noconfirm
+	sudo pacman -S flatpak xdg-desktop-portal-gtk --noconfirm --needed
 
 	echo "## Habilitando o Serviço do LightDM no SystemD"
 	sudo systemctl enable lightdm
 
+	echo "## Copiando Wallpapers para /usr/share/backgrounds..."
+	sudo cp -r $OndeEstou/backgrounds /usr/share
+
+}
+
+instalarAUR () {
+	echo -e "\nHá alguns pacotes que compõe o Nippybox que estão no AUR (Arch Linux User Repository), e para instalar eles é necessário o uso de um ajudante de AUR. O yay é o Ajudante de AUR que esse Script utiliza."
+	sleep 1
+
+	echo -e "\n## Instalando as Dependências do Yay..."
+	sudo pacman -S git go make --noconfirm
+
+	echo -e "\n## Clonando o Repositório do Yay..."
+	git clone https://aur.archlinux.org/yay.git
+	cd yay
+
+	echo -e "\n## Construindo e Instalando o Yay..."
+	makepkg -si --noconfirm --needed
+
+	echo -e "\n## Removendo o Pacote Go, usado na Construção do Yay..."
+	sudo pacman -Rs go --noconfirm
+
+	echo -e "\n## Gerando Banco de Dados do Yay..."
+	yay -Y –gendb
+
+	echo "## Instalando os Pacotes do AUR..."
+	yay -S betterlockscreen --noconfirm --needed
 }
 
 creditos () {
@@ -94,6 +121,7 @@ verificarDiretorios
 sleep 1
 instalarPacotes
 instalarExtras
+instalarAUR
 instalarFontes
 copiarConfigs
 finalizarConfig
