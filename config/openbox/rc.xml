@@ -848,7 +848,8 @@
       <command>xkill</command>
     </action>
   </keybind>
-
+</keyboard>
+	
 <mouse>
   <dragThreshold>1</dragThreshold>
   <!-- number of pixels the mouse must move before a drag begins -->
