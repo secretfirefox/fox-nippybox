@@ -342,7 +342,7 @@ window.label.text.justify:   center
 EOF
 	} > $obThemeFile
 	cp $obThemeFile $obThemeFolder
-	check_theme
+	# check_theme
 }
 
 check_theme(){
