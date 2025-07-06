@@ -12,10 +12,10 @@ instalarAUR () {
 	cd yay
 
 	echo -e "\n## Instalando o Yay"
-	makepkg -si
+	makepkg -si --noconfirm --needed
 
 	echo "## Instalando as Dependências Faltantes..."
-	sudo pacman -Syu betterlockscreen --noconfirm
+	sudo yay -S betterlockscreen --noconfirm --needed
 }
 
 instalarAUR

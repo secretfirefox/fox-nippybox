@@ -71,14 +71,20 @@ EOF
 
 instalarExtras () {
 	echo "## Instalando Pacotes Extras..."
-	sudo pacman -S lightdm lightdm-gtk-greeter parcellite galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unar unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox --noconfirm
+	sleep 1
+	sudo pacman -S lightdm lightdm-gtk-greeter parcellite galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unarj unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox --noconfirm
 
 	echo "## Instalando Suporte ao Flatpak..."
-	sudo pacman -S flatpak xdg-desktop-portal-gtk
+	sleep 1
+	sudo pacman -S flatpak xdg-desktop-portal-gtk --noconfirm
+
+	echo "## Habilitando o Serviço do LightDM no SystemD"
+	sudo systemctl enable lightdm
+
 }
 
 creditos () {
-	echo -e "\nCréditos ao Aditya Shakya, que foi o responsável pelas personalizações do Rofi, da Polybar e dos seguintes Scripts:\n\n	- nippy-shot: Originalmente era o ob-shot, mas foi modificado para também ter a função de ser um Pipemenu\n	- nippy-rec: Originalmente era o ac-record, e foi modificado para trabalhar como um gravador simples por linha de comando\n	- ac-randr: Não foi modificado.\n	- nippy-sysinfo: Originalmente era o ac-sysinfo e foi modificado para trabalhar como um simples fetch.\n"
+	echo -e "\nCréditos ao Aditya Shakya, que foi o responsável pelas personalizações do Rofi, da Polybar e de alguns dos Scripts que foram implementados no Nippybox"
 
 }
 
@@ -87,6 +93,7 @@ echo -e "\nBem-vindo ao instalador do Nippybox!\nO Nippybox é uma personalizaç
 verificarDiretorios
 sleep 1
 instalarPacotes
+instalarExtras
 instalarFontes
 copiarConfigs
 finalizarConfig
