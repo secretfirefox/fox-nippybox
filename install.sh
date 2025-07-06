@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 OndeEstou=`pwd`
 
@@ -11,7 +12,7 @@ verificarDiretorios () {
 instalarPacotes () {
 	echo -e "\n## Instalando Pacotes..."
 	sleep 1
-	sudo pacman -Syu openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xbacklight --noconfirm
+	sudo pacman -Syu openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight --noconfirm
 }
 
 instalarFontes () {
@@ -61,6 +62,7 @@ EOF
 		cat <<EOF
 #!/bin/bash
 
+XDG_SESSION_TYPE=x11
 exec openbox-session
 
 EOF
