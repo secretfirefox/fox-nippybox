@@ -40,7 +40,7 @@ finalizarConfig () {
 	xdg-user-dirs-update
 
 	echo "## Aplicando o Esquema de Cores"
-	bash $HOME/.local/bin/nippy-colorizer $HOME/.config/openbox/wallpaper.jpg
+	bash $HOME/.local/bin/nippy-colorizer "/usr/share/backgrounds/Tongue Cat by Nennieinszweidrei.png" --no-X11
 
 	echo "## Configurando o Wallpaper Padrão..."
 
@@ -48,7 +48,7 @@ finalizarConfig () {
 		cat <<EOF
 
 [xin_-1]
-file=$HOME/.config/openbox/wallpaper.jpg
+file=/usr/share/backgrounds/Tongue Cat by Nennieinszweidrei.png
 mode=5
 bgcolor=#000000
 
@@ -83,6 +83,13 @@ instalarExtras () {
 
 	echo "## Copiando Wallpapers para /usr/share/backgrounds..."
 	sudo cp -r $OndeEstou/backgrounds /usr/share
+
+	echo "## Copiando Hooks para uso no Pacman..."
+	sudo cp $OndeEstou/misc/hooks/* /usr/bin/
+	sudo cp $OndeEstou/misc/libalpm/* /usr/share/libalpm/hooks
+
+	echo "## Corrigindo o Thunar..."
+	nippy-hooks fix-thunar
 
 }
 
@@ -121,10 +128,10 @@ verificarDiretorios
 sleep 1
 instalarPacotes
 instalarExtras
-instalarAUR
 instalarFontes
 copiarConfigs
 finalizarConfig
+instalarAUR
 creditos
 sleep 5
 startx
