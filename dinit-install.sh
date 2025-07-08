@@ -60,7 +60,7 @@ cp -r .xinitrc ~/
 
 # Install extra packages
 
-sudo pacman -S lightdm lightdm-dinit lightdm-gtk-greeter galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox gst-plugins-ugly gst-plugins-good gst-plugins-base gst-plugins-bad gst-libav gstreamer ntfs-3g --noconfirm 
+sudo pacman -S lightdm lightdm-dinit lightdm-gtk-greeter galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox gst-plugins-ugly gst-plugins-good gst-plugins-base gst-plugins-bad gst-libav gstreamer ntfs-3g base-devel --noconfirm 
 
 # Install flatpak
 
@@ -77,7 +77,7 @@ sudo cp -r backgrounds/* /usr/share/
 # Copy hooks for use in pacman
 
 sudo cp misc/hooks/* /usr/bin
-sudo cp mims/libalpm/* /usr/share/libalpm/hooks
+sudo cp misc/libalpm/* /usr/share/libalpm/hooks
 
 # Fix thunar
 
