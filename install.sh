@@ -42,19 +42,6 @@ finalizarConfig () {
 	echo "## Aplicando o Esquema de Cores"
 	bash $HOME/.local/bin/nippy-colorizer "/usr/share/backgrounds/Tongue Cat by Nennieinszweidrei.png" --no-X11
 
-	echo "## Configurando o Wallpaper Padrão..."
-
-	{
-		cat <<EOF
-
-[xin_-1]
-file=/usr/share/backgrounds/Tongue Cat by Nennieinszweidrei.png
-mode=5
-bgcolor=#000000
-
-EOF
-	} > $HOME/.config/nitrogen/bg-saved.cfg
-
 
 	echo "## Gerando o .xinitrc..."
 
@@ -67,12 +54,16 @@ exec openbox-session
 
 EOF
 	} > $HOME/.xinitrc
+
+	echo "## Configurando o Plano de Fundo da Tela de Bloqueio..."
+	betterlockscreen -u "/usr/share/backgrounds/Tongue Cat by Nennieinszweidrei.png"
+
 }
 
 instalarExtras () {
 	echo "## Instalando Pacotes Extras..."
 	sleep 1
-	sudo pacman -S lightdm lightdm-gtk-greeter parcellite galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unarj unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox gst-plugins-ugly gst-plugins-good gst-plugins-base gst-plugins-bad gst-libav gstreamer ntfs-3g --noconfirm --needed
+	sudo pacman -S lightdm lightdm-gtk-greeter parcellite galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox gst-plugins-ugly gst-plugins-good gst-plugins-base gst-plugins-bad gst-libav gstreamer ntfs-3g --noconfirm --needed
 
 	echo "## Instalando Suporte ao Flatpak..."
 	sleep 1
@@ -85,15 +76,17 @@ instalarExtras () {
 	sudo cp -r $OndeEstou/backgrounds /usr/share
 
 	echo "## Copiando Hooks para uso no Pacman..."
+	chmod +x $OndeEstou/misc/hooks/*
 	sudo cp $OndeEstou/misc/hooks/* /usr/bin/
 	sudo cp $OndeEstou/misc/libalpm/* /usr/share/libalpm/hooks
 
 	echo "## Corrigindo o Thunar..."
-	nippy-hooks fix-thunar
+	sudo nippy-hooks fix-thunar
 
 }
 
 instalarAUR () {
+	cd /tmp
 	echo -e "\nHá alguns pacotes que compõe o Nippybox que estão no AUR (Arch Linux User Repository), e para instalar eles é necessário o uso de um ajudante de AUR. O yay é o Ajudante de AUR que esse Script utiliza."
 	sleep 1
 
@@ -114,7 +107,9 @@ instalarAUR () {
 	yay -Y –gendb
 
 	echo "## Instalando os Pacotes do AUR..."
-	yay -S betterlockscreen --noconfirm --needed
+	yay -S betterlockscreen --noconfirm
+
+	cd $OndeEstou
 }
 
 creditos () {
@@ -130,8 +125,8 @@ instalarPacotes
 instalarExtras
 instalarFontes
 copiarConfigs
-finalizarConfig
 instalarAUR
+finalizarConfig
 creditos
 sleep 5
 startx
