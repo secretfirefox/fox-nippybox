@@ -84,25 +84,20 @@ bright () {
 
     # Notify
     notify_bl() {
-       dunstify -u low -h string:x-dunst-stack-tag:obbacklight "Brightness : $(get_backlight)"
+		brightness=$(get_backlight)
+		dunstify -u low -h string:x-dunst-stack-tag:obbacklight "Brightness : $brightness"
     }
 
     # Increase brightness
     inc_backlight() {
-        if [[ "$CARD" == *"intel_"* ]]; then
-            brightnessctl set +5% && notify_bl
-        else
-            light -A 5 && notify_bl
-        fi
+       brightnessctl set +5%
+       notify_bl
     }
 
     # Decrease brightness
     dec_backlight() {
-        if [[ "$CARD" == *"intel_"* ]]; then
-            brightnessctl set 5%- && notify_bl
-        else
-            light -U 5 && notify_bl
-        fi
+        brightnessctl set 5%-
+        notify_bl 
     }
 
     # Execute accordingly
@@ -117,8 +112,27 @@ bright () {
     fi
 }
 
+media () {
+	if [[ "$1" == "--play-pause" ]]; then
+        playerctl play-pause
+    elif [[ "$1" == "--pause-all" ]]; then
+        playerctl -a pause
+    elif [[ "$1" == "--next" ]]; then
+        playerctl next
+    elif [[ "$1" == "--prev" ]]; then
+		playerctl previous
+	elif [[ "$1" == "--stop" ]]; then
+		playerctl stop
+    else
+		echo "Players:"
+        playerctl -l
+    fi
+}
+
 if [[ "$1" == "audio" ]];then
     volume $2
 elif [[ "$1" == "bright" ]]; then
     bright $2
+elif [[ "$1" == "media" ]]; then
+	media $2
 fi

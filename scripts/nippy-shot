@@ -64,29 +64,29 @@ countdown () {
 
 # take shots
 shotnow () {
-	cd ${dir} && maim -u -f png | copy_shot
+	cd ${dir} && maim -f png | copy_shot
 	notify_view
 }
 
 shot5 () {
 	countdown '5'
-	sleep 1 && cd ${dir} && maim -u -f png | copy_shot
+	sleep 1 && cd ${dir} && maim -f png | copy_shot
 	notify_view
 }
 
 shot10 () {
 	countdown '10'
-	sleep 1 && cd ${dir} && maim -u -f png | copy_shot
+	sleep 1 && cd ${dir} && maim -f png | copy_shot
 	notify_view
 }
 
 shotwin () {
-	cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot
+	cd ${dir} && maim -f png -i `xdotool getactivewindow` | copy_shot
 	notify_view
 }
 
 shotarea () {
-	cd ${dir} && maim -u -f png -s -b 2 -c ${border},0.25 -l | copy_shot
+	cd ${dir} && maim -f png -s -b 2 -c ${border},0.25 -l | copy_shot
 	notify_view
 }
 

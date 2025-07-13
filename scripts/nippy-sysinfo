@@ -28,29 +28,6 @@ menuItem "  WIFI       :  $interface ∙ $status ∙ $ssid" 'echo'
 menuEnd
 }
 
-getBrightness () {
-    CARD=$(ls /sys/class/backlight | head -n 1)
-	if [ -z "$(command -v xbacklight)" ]; then
-		if [ -e "/sys/class/backlight/$CARD/brightness" ]; then
-			b_value=$(cat /sys/class/backlight/$CARD/brightness)
-			echo "$(($b_value/255))"
-		else
-			echo "N/A"
-		fi
-	else
-		# Get brightness
-		get_backlight() {
-			if [[ "$CARD" == *"intel_"* ]]; then
-				BNESS=$(xbacklight -get)
-				LIGHT=${BNESS%.*}
-			else
-				LIGHT=$(printf "%.0f\n" `light -G`)
-			fi
-			echo "${LIGHT}%"
-		}
-	fi
-}
-
 ##-- OS ------------------------
 os=`uname -o`
 
@@ -86,7 +63,7 @@ b_perc=`acpi -b | grep Battery | cut -d' ' -f4 | tr -d ,`
 b_cap=`acpi -i | tail -n1 | cut -d'=' -f2 | tr -d "[:blank:]"`
 
 ##-- BACKLIGHT ------------------------
-backlight="$(getBrightness)%"
+backlight=$(brightnessctl | grep "Current" | awk -F '(' '{print $2}' | cut -d ")" -f1)
 
 ##-- UPTIME ------------------------
 uptime=`uptime -p | awk '{print $2 " " $3 " " $4 " " $5}'`

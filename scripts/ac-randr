@@ -65,7 +65,7 @@ def mk_exe_node(output, name, command):
     """
     CMD = 'xrandr --output %s ' % output
     CMD_1 = 'nitrogen --restore'
-    CMD_2 = '~/.config/openbox/themes/launch-bar.sh'
+    CMD_2 = 'killall polybar && polybar -r'
 
     # Apply Mode
     item = etree.Element('item', label=name)
