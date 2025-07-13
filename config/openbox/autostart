@@ -6,6 +6,9 @@
 #killall -9 xfsettingsd picom polybar mpd dunst ksuperkey xfce4-power-manager
 killall -9 xfsettingsd picom polybar dunst xfce4-power-manager
 
+## xfce4-settings daemon
+xfsettingsd &
+
 ## Enable Super Keys For Menu
 #ksuperkey -e 'Super_L=Alt_L|F1' &
 #ksuperkey -e 'Super_R=Alt_L|F1' &
@@ -13,8 +16,7 @@ killall -9 xfsettingsd picom polybar dunst xfce4-power-manager
 ## Restore Wallpaper
 nitrogen --restore &
 
-## xfce4-settings daemon
-xfsettingsd &
+
 
 ## polkit agent
 #if [[ ! `pidof xfce-polkit` ]]; then
@@ -29,20 +31,15 @@ exec picom &
 
 ## Launch Polybar or Tint2
 exec polybar -r &
-#bash ~/.config/openbox/themes/launch-bar.sh
 
 ## Notification Daemon
 exec dunst &
-
-## Start Music Player Daemon
-exec mpd &
 
 ## Launch Plank
 exec plank &
 
 ## Thunar Daemon
 exec thunar --daemon &
-
 
 ## These applets are specifically for tint2 panel.
 ## If you're using tint2 as panel, Uncomment these applets.
