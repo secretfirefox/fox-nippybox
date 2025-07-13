@@ -342,17 +342,12 @@ window.label.text.justify:   center
 EOF
 	} > $obThemeFile
 	cp $obThemeFile $obThemeFolder
-	# check_theme
 }
 
 check_theme(){
 	if [[ $(cat $HOME/.config/openbox/rc.xml | grep "nippybox") ]]; then
 		notify-send "Done. now you can try your theme :)"
 		openbox --reconfigure
-	elif [[ $(find /usr/lib -type d -name lxappearance | xargs ls -R | grep ob) ]]; then
-		lxappearance >/dev/null 2>&1
-	elif [[ $(which obconf) ]]; then
-		obconf >/dev/null 2>&1
 	fi
 }
 
@@ -394,3 +389,10 @@ rofi_color
 
 echo "## Colorindo o Tema Openbox..."
 obTheme
+
+if [[ "$2" == "--no-X11" ]]; then
+	echo "Pronto!"
+else
+	check_theme
+	echo "Pronto!"
+fi

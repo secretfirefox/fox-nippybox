@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
+
+# Import Current Theme
+DIR="$HOME/.config/rofi"
+RASI="$DIR/launcher.rasi"
+
+launcher () {
+	RASI="$DIR/launcher.rasi"
+	rofi \
+    -show drun \
+	-kb-cancel Escape \
+	-theme ${RASI}
+}
+
+run () {
+	RASI="$DIR/runner.rasi"
+	rofi \
+    -show run \
+	-theme ${RASI}
+}
+
+
+if [[ "$1" == "run" ]]; then
+	run
+else
+	launcher
+fi

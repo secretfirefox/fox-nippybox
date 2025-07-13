@@ -8,7 +8,7 @@ RASI="$DIR/powermenu.rasi"
 CNFR="$DIR/confirm.rasi"
 
 # Theme Elements
-prompt="`hostname` (`echo $DESKTOP_SESSION`)"
+prompt="`$HOSTNAME` (`echo $DESKTOP_SESSION`)"
 mesg="Uptime : `uptime -p | sed -e 's/up //g'`"
 
 # Options
