@@ -63,7 +63,7 @@ EOF
 instalarExtras () {
 	echo "## Instalando Pacotes Extras..."
 	sleep 1
-	sudo pacman -S lightdm lightdm-gtk-greeter parcellite galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox gst-plugins-ugly gst-plugins-good gst-plugins-base gst-plugins-bad gst-libav gstreamer ntfs-3g --noconfirm --needed
+	sudo pacman -S lightdm lightdm-gtk-greeter parcellite galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox gst-plugins-ugly gst-plugins-good gst-plugins-base gst-plugins-bad gst-libav gstreamer ntfs-3g mpv-mpris --noconfirm --needed
 
 	echo "## Instalando Suporte ao Flatpak..."
 	sleep 1
