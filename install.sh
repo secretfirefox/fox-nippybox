@@ -2,6 +2,7 @@
 set -e
 
 OndeEstou=`pwd`
+LightDMBack="Oranges by tamanna_rumee.png"
 
 verificarDiretorios () {
 	mkdir -p $HOME/.local/bin
@@ -13,7 +14,7 @@ verificarDiretorios () {
 instalarPacotes () {
 	echo -e "\n## Instalando Pacotes Básicos..."
 	sleep 1
-	sudo pacman -Syu nano openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa playerctl clipnotify --noconfirm --needed
+	sudo pacman -Syu nano openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa playerctl clipnotify noto-fonts-emoji --noconfirm --needed
 }
 
 instalarFontes () {
@@ -74,6 +75,12 @@ instalarExtras () {
 
 	echo "## Habilitando o Serviço do LightDM no SystemD"
 	sudo systemctl enable lightdm
+	
+	sudo cp /usr/share/backgrounds/$LightDMBack /usr/share/pixmaps
+	sudo sed -i '/background/s/^#//g' /etc/lightdm/lightdm-gtk-greeter.conf
+	sudo sed -i '/user-background/s/^/#/g' /etc/lightdm/lightdm-gtk-greeter.conf
+	sudo sed -i 's|^background=.*|background=/usr/share/pixmaps/$LightDMBack|' /etc/lightdm/lightdm-gtk-greeter.conf
+	
 
 	echo "## Copiando Wallpapers para /usr/share/backgrounds..."
 	sudo cp -r $OndeEstou/backgrounds /usr/share
