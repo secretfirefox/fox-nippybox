@@ -82,8 +82,7 @@ instalarExtras () {
 	
 	sudo cp "/usr/share/backgrounds/$LightDMBack" /usr/share/pixmaps
 	sudo mv "/usr/share/pixmaps/$LightDMBack" "/usr/share/pixmaps/background.png"
-	sudo sed -i '/background/s/^#//g' /etc/lightdm/lightdm-gtk-greeter.conf
-	sudo sed -i '/user-background/s/^/#/g' /etc/lightdm/lightdm-gtk-greeter.conf
+	sudo sed -i 's|^#\(background=.*\)|\1|' /etc/lightdm/lightdm-gtk-greeter.conf
 	sudo sed -i 's|^background=.*|background=/usr/share/pixmaps/background.png|' /etc/lightdm/lightdm-gtk-greeter.conf
 	
 	echo "## Copiando Hooks para uso no Pacman..."
