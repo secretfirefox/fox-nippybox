@@ -76,15 +76,16 @@ instalarExtras () {
 	echo "## Habilitando o Serviço do LightDM no SystemD"
 	sudo systemctl enable lightdm
 	
-	sudo cp /usr/share/backgrounds/$LightDMBack /usr/share/pixmaps
-	sudo sed -i '/background/s/^#//g' /etc/lightdm/lightdm-gtk-greeter.conf
-	sudo sed -i '/user-background/s/^/#/g' /etc/lightdm/lightdm-gtk-greeter.conf
-	sudo sed -i 's|^background=.*|background=/usr/share/pixmaps/$LightDMBack|' /etc/lightdm/lightdm-gtk-greeter.conf
-	
-
 	echo "## Copiando Wallpapers para /usr/share/backgrounds..."
 	sudo cp -r $OndeEstou/backgrounds /usr/share
 
+	
+	sudo cp "/usr/share/backgrounds/$LightDMBack" /usr/share/pixmaps
+	sudo mv "/usr/share/pixmaps/$LightDMBack" "/usr/share/pixmaps/background.png"
+	sudo sed -i '/background/s/^#//g' /etc/lightdm/lightdm-gtk-greeter.conf
+	sudo sed -i '/user-background/s/^/#/g' /etc/lightdm/lightdm-gtk-greeter.conf
+	sudo sed -i 's|^background=.*|background=/usr/share/pixmaps/background.png|' /etc/lightdm/lightdm-gtk-greeter.conf
+	
 	echo "## Copiando Hooks para uso no Pacman..."
 	chmod +x $OndeEstou/misc/hooks/*
 	sudo cp $OndeEstou/misc/hooks/* /usr/bin/
