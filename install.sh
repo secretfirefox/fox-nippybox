@@ -7,6 +7,7 @@ verificarDiretorios () {
 	mkdir -p $HOME/.local/bin
 	mkdir -p $HOME/.config
 	mkdir -p $HOME/.themes/nippybox
+	mkdir -p $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/
 }
 
 instalarPacotes () {
