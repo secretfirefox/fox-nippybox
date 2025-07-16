@@ -27,7 +27,6 @@ instalarFontes () {
 copiarConfigs () {
 	echo -e "## Copiando as Configurações..."
 	cp -r $OndeEstou/config/* $HOME/.config/
-	rm -r $HOME/.config/xfce4/xfconf/
 	mv $HOME/.config/xfce4/xfce-perchannel-xml $HOME/.config/xfce4/xfconf/
 	cd ..
 
@@ -82,8 +81,8 @@ instalarExtras () {
 	
 	sudo cp "/usr/share/backgrounds/$LightDMBack" /usr/share/pixmaps
 	sudo mv "/usr/share/pixmaps/$LightDMBack" "/usr/share/pixmaps/background.png"
-	sudo sed -i 's|^#\(background=.*\)|\1|' /etc/lightdm/lightdm-gtk-greeter.conf
-	sudo sed -i 's|^background=.*|background=/usr/share/pixmaps/background.png|' /etc/lightdm/lightdm-gtk-greeter.conf
+	sudo sed -i 's|^#\(background=.*\)|\1|' /etc/lightdm/lightdm-gtk-greeter.conf # Descomentando a linha certa para que o Lightdm configure o Background
+	sudo sed -i 's|^background=.*|background=/usr/share/pixmaps/background.png|' /etc/lightdm/lightdm-gtk-greeter.conf # Configurando o Background do Lightdm
 	
 	echo "## Copiando Hooks para uso no Pacman..."
 	chmod +x $OndeEstou/misc/hooks/*
