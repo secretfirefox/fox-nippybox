@@ -26,6 +26,8 @@ instalarFontes () {
 copiarConfigs () {
 	echo -e "## Copiando as Configurações..."
 	cp -r $OndeEstou/config/* $HOME/.config/
+	rm -r $HOME/.config/xfce4/xfconf/
+	mv $HOME/.config/xfce4/xfce-perchannel-xml $HOME/.config/xfce4/xfconf/
 	cd ..
 
 	echo "## Copiando Temas..."
