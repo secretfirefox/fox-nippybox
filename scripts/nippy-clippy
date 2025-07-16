@@ -1,5 +1,6 @@
 #!/bin/bash
 
+RASI="$HOME/.config/rofi/clippy.rasi"
 HISTORY="$HOME/.clipboard.history"
 
 if [ $1 = "daemon" ]; then
@@ -19,6 +20,6 @@ if [ $1 = "daemon" ]; then
 		fi
 	done;
 elif [ $1 = "rofi" ]; then
-	INPUT=$(echo "`tac $HISTORY`" | rofi -dmenu -i -p "")
+	INPUT=$(echo "`tac $HISTORY`" | rofi -dmenu -i -theme $RASI -p "")
 	[[ -z "$INPUT" ]] || echo -e "$INPUT" | xclip -selection "clipboard" -rmlastnl
 fi

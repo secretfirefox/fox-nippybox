@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+## Author  : Aditya Shakya (adi1090x)
+## Github  : @adi1090x
+#
+## Applets : Favorite Applications
+
+# Import Current Theme
+
+theme="$HOME/.config/rofi/roar.rasi"
+
+# Theme Elements
+prompt='ROAR - Rofi of all Rofis'
+
+
+list_col='1'
+list_row='11'
+
+# Options
+
+	option_1="Launch"
+	option_2="Runner"
+	option_3="Music"
+	option_4="Shot"
+	option_5="Emoji"
+	option_6="Clippy"
+	option_7=""
+	option_8=""
+	option_9="Wallpapers"
+	option_10="Powermenu"
+
+
+# Rofi CMD
+rofi_cmd() {
+	rofi -theme-str "listview {columns: $list_col; lines: $list_row;}" \
+		-theme-str 'textbox-prompt-colon {str: "";}' \
+		-dmenu \
+		-p "$prompt" \
+		-mesg "$mesg" \
+		-markup-rows \
+		-theme ${theme}
+}
+
+# Pass variables to rofi dmenu
+run_rofi() {
+	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10" | rofi_cmd
+}
+
+# Execute Command
+run_cmd() {
+	if [[ "$1" == '--opt1' ]]; then
+		rofi-launcher
+	elif [[ "$1" == '--opt2' ]]; then
+		rofi-launcher run
+	elif [[ "$1" == '--opt3' ]]; then
+		rofi-music
+	elif [[ "$1" == '--opt4' ]]; then
+		rofi-screenshot
+	elif [[ "$1" == '--opt5' ]]; then
+		rofi-emoji
+	elif [[ "$1" == '--opt6' ]]; then
+		nippy-clippy rofi
+	elif [[ "$1" == '--opt9' ]]; then
+		rofi-wal
+	elif [[ "$1" == '--opt10' ]]; then
+		rofi-powermenu
+	fi
+}
+
+# Actions
+chosen="$(run_rofi)"
+case ${chosen} in
+    $option_1)
+		run_cmd --opt1
+        ;;
+    $option_2)
+		run_cmd --opt2
+        ;;
+    $option_3)
+		run_cmd --opt3
+        ;;
+    $option_4)
+		run_cmd --opt4
+        ;;
+    $option_5)
+		run_cmd --opt5
+        ;;
+    $option_6)
+		run_cmd --opt6
+        ;;
+    $option_9)
+		run_cmd --opt9
+		;;
+    $option_10)
+		run_cmd --opt10
+		;;
+esac

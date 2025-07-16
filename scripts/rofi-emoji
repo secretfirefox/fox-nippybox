@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-RASI="$HOME/.config/rofi/wifi.rasi"
+RASI="$HOME/.config/rofi/emoji.rasi"
 
 bm_version=0.4.0
 # Emoji default database location

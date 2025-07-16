@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+### Created by ilsenatorov
+### Change WALLPAPERDIR to the directory where you store wallpapers
+
+RASI="$HOME/.config/rofi/wall.rasi"
+walDir="/usr/share/backgrounds" # Wallpapers do Sistema
+wlist="$HOME/.cache/wlist" # Lista temporária de Wallpapers
+userPicsDir=$(xdg-user-dir PICTURES) # Diretório de Imagens
+IFS=$';' # Para fazer com que o laço FOR mantenha o nome dos arquivos intactos
+
+
+getWal () {
+	# Verificando se há alguma pasta de Wallpapers no Usuário
+	if [ -d "$userPicsDir/Wallpapers" ]; then
+		find $userPicsDir/Wallpapers -iname '*.png' -o -iname '*.jpg' >> $wlist
+	elif [ -d "$userPicsDir/wallpapers" ]; then
+		find $userPicsDir/wallpapers -iname '*.png' -o -iname '*.jpg' >> $wlist
+	else
+		mkdir "$userPicsDir/Wallpapers"
+	fi
+}
+
+get_themes() {
+		echo "Current Wallpaper"
+		
+		find $walDir -iname '*.png' -o -iname '*.jpg' > $wlist # Fazendo uma lista temporária com os Wallpapers
+		getWal
+		
+		for tempWal in $(cat $wlist); do # Usando um laço for...
+			echo "$tempWal"  | sed 's#.*/##' # ... para extrair apenas o nome do Arquivo
+		done
+	}
+	
+	wallpaper=$(get_themes | rofi -dmenu -theme $RASI) # Mostra o Rofi para escolher o Wallpaper
+
+    if [ x"Current" = x"${wallpaper}" ]; then
+        exit
+    elif [ -n "${wallpaper}" ]; then
+    wallpath=$(cat $wlist | grep $wallpaper) # Procura o nome o Wallpaper na lista temporária
+    nippy-colorizer "$wallpath" # Usando o Nippy Colorizer para colorizar tudo de acordo com o Wallpaper escolhido
+    fi
