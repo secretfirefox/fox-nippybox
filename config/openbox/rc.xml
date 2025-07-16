@@ -628,6 +628,12 @@
       <command>rofi-wifi</command>
     </action>
   </keybind>
+  
+  <keybind key="W-S-e">
+    <action name="Execute">
+      <command>rofi-emoji</command>
+    </action>
+  </keybind>
     <!--  <keybind key="W-b">
     <action name="Execute">
       <command>rofi-bluetooth</command>
@@ -658,6 +664,12 @@
     <keybind key="W-r">
       <action name="Execute">
         <command>rofi-launcher run</command>
+      </action>
+    </keybind>
+    
+	<keybind key="W-F12">
+      <action name="Execute">
+        <command>nippy-roar</command>
       </action>
     </keybind>
     <!-- CLI Apps -->
