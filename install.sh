@@ -2,19 +2,17 @@
 set -e
 
 OndeEstou=`pwd`
-LightDMBack="Oranges by tamanna_rumee.png"
 
 verificarDiretorios () {
 	mkdir -p $HOME/.local/bin
 	mkdir -p $HOME/.config
 	mkdir -p $HOME/.themes/nippybox
-	mkdir -p $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/
 }
 
 instalarPacotes () {
 	echo -e "\n## Instalando Pacotes Básicos..."
 	sleep 1
-	sudo pacman -Syu nano openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa playerctl clipnotify noto-fonts-emoji --noconfirm --needed
+	sudo pacman -Syu nano openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa playerctl --noconfirm --needed
 }
 
 instalarFontes () {
@@ -73,16 +71,10 @@ instalarExtras () {
 
 	echo "## Habilitando o Serviço do LightDM no SystemD"
 	sudo systemctl enable lightdm
-	
+
 	echo "## Copiando Wallpapers para /usr/share/backgrounds..."
 	sudo cp -r $OndeEstou/backgrounds /usr/share
 
-	
-	sudo cp "/usr/share/backgrounds/$LightDMBack" /usr/share/pixmaps
-	sudo mv "/usr/share/pixmaps/$LightDMBack" "/usr/share/pixmaps/background.png"
-	sudo sed -i 's|^#\(background=.*\)|\1|' /etc/lightdm/lightdm-gtk-greeter.conf # Descomentando a linha certa para que o Lightdm configure o Background
-	sudo sed -i 's|^background=.*|background=/usr/share/pixmaps/background.png|' /etc/lightdm/lightdm-gtk-greeter.conf # Configurando o Background do Lightdm
-	
 	echo "## Copiando Hooks para uso no Pacman..."
 	chmod +x $OndeEstou/misc/hooks/*
 	sudo cp $OndeEstou/misc/hooks/* /usr/bin/
