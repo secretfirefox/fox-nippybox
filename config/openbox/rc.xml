@@ -627,7 +627,13 @@
     <action name="Execute">
       <command>rofi-wifi</command>
     </action>
-  </keybind>
+	</keybind>
+	
+	<keybind key="W-v">
+    <action name="Execute">
+      <command>nippy-clippy rofi</command>
+    </action>
+	</keybind>
   
   <keybind key="W-S-e">
     <action name="Execute">
@@ -674,7 +680,7 @@
     </keybind>
     <!-- CLI Apps -->
     <!-- Misc -->
-    <keybind key="C-A-l">
+    <keybind key="W-l">
       <action name="Execute">
         <command>betterlockscreen --lock</command>
       </action>
