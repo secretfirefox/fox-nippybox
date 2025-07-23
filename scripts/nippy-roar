@@ -7,43 +7,27 @@
 
 # Import Current Theme
 
-theme="$HOME/.config/rofi/roar.rasi"
-
-# Theme Elements
-prompt='ROAR - Rofi of all Rofis'
-
-
-list_col='1'
-list_row='11'
+RASI="$HOME/.config/rofi/roar.rasi"
 
 # Options
 
-	option_1="Launch"
-	option_2="Runner"
-	option_3="Music"
-	option_4="Shot"
-	option_5="Emoji"
-	option_6="Clippy"
-	option_7=""
-	option_8=""
-	option_9="Wallpapers"
-	option_10="Powermenu"
-
+option_1=" Launch"
+option_2="  Runner"
+option_3=" Music"
+option_4=" Shot"
+option_5="󰞅  Emoji"
+option_6=" Clippy"
+option_7="󰸉  Wallpapers"
+option_8="󰐥 Powermenu"
 
 # Rofi CMD
 rofi_cmd() {
-	rofi -theme-str "listview {columns: $list_col; lines: $list_row;}" \
-		-theme-str 'textbox-prompt-colon {str: "";}' \
-		-dmenu \
-		-p "$prompt" \
-		-mesg "$mesg" \
-		-markup-rows \
-		-theme ${theme}
+	rofi -dmenu -i -theme $RASI
 }
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10" | rofi_cmd
+	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8" | rofi_cmd
 }
 
 # Execute Command
@@ -60,9 +44,9 @@ run_cmd() {
 		rofi-emoji
 	elif [[ "$1" == '--opt6' ]]; then
 		nippy-clippy rofi
-	elif [[ "$1" == '--opt9' ]]; then
+	elif [[ "$1" == '--opt7' ]]; then
 		rofi-wal
-	elif [[ "$1" == '--opt10' ]]; then
+	elif [[ "$1" == '--opt8' ]]; then
 		rofi-powermenu
 	fi
 }
@@ -88,10 +72,10 @@ case ${chosen} in
     $option_6)
 		run_cmd --opt6
         ;;
-    $option_9)
-		run_cmd --opt9
+    $option_7)
+		run_cmd --opt7
 		;;
-    $option_10)
-		run_cmd --opt10
+    $option_8)
+		run_cmd --opt8
 		;;
 esac

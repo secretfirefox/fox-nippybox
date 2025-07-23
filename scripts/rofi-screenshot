@@ -7,7 +7,6 @@ DIR="$HOME/.config/rofi"
 RASI="$DIR/screenshot.rasi"
 
 # Theme Elements
-prompt='Screenshot'
 mesg="Directory :: `xdg-user-dir PICTURES`/Screenshots"
 
 # Options
@@ -29,7 +28,6 @@ fi
 # Rofi CMD
 rofi_cmd() {
 	rofi -dmenu \
-		-p "$prompt" \
 		-mesg "$mesg" \
 		-markup-rows \
 		-theme ${RASI}
@@ -57,12 +55,7 @@ notify_view() {
 	notify_cmd_shot='dunstify -u low -h string:x-dunst-stack-tag:obscreenshot -i /usr/share/archcraft/icons/dunst/picture.png'
 	${notify_cmd_shot} "Copied to clipboard."
 	paplay /usr/share/sounds/freedesktop/stereo/screen-capture.oga &>/dev/null &
-	viewnior ${dir}/"$file"
-	if [[ -e "$dir/$file" ]]; then
-		${notify_cmd_shot} "Screenshot Saved."
-	else
-		${notify_cmd_shot} "Screenshot Deleted."
-	fi
+	${notify_cmd_shot} "Screenshot Saved."
 }
 
 # Copy screenshot to clipboard

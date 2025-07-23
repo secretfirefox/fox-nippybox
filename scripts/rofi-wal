@@ -9,6 +9,42 @@ wlist="$HOME/.cache/wlist" # Lista temporária de Wallpapers
 userPicsDir=$(xdg-user-dir PICTURES) # Diretório de Imagens
 IFS=$';' # Para fazer com que o laço FOR mantenha o nome dos arquivos intactos
 
+rofiMode () {
+	option1=" Set as Wallpaper and Colorize"
+	option2=" Set as Wallpaper"
+	option3=" Set as Lockscreen"
+}
+
+runRofiMode () {
+	echo -e "$option1\n$option2\n$option3" | rofi -dmenu -theme $RASI
+}
+
+runMode () {
+	if [[ "$1" == '--opt1' ]]; then
+		nippy-wal --colorize "$walPath"
+	elif [[ "$1" == '--opt2' ]]; then
+		nippy-wal --wallpaper "$walPath"
+	elif [[ "$1" == '--opt3' ]]; then
+		nippy-wal --lockscreen "$walPath"
+	fi
+}
+
+selectMode () {
+	rofiMode
+	choose=$(runRofiMode)
+	
+	case ${choose} in
+	$option1)
+		runMode --opt1
+        ;;
+    $option2)
+		runMode --opt2
+        ;;
+    $option3)
+		runMode --opt3
+        ;;
+    esac
+}
 
 getWal () {
 	# Verificando se há alguma pasta de Wallpapers no Usuário
@@ -21,22 +57,22 @@ getWal () {
 	fi
 }
 
-get_themes() {
-		echo "Current Wallpaper"
-		
-		find $walDir -iname '*.png' -o -iname '*.jpg' > $wlist # Fazendo uma lista temporária com os Wallpapers
-		getWal
-		
-		for tempWal in $(cat $wlist); do # Usando um laço for...
-			echo "$tempWal"  | sed 's#.*/##' # ... para extrair apenas o nome do Arquivo
-		done
-	}
-	
-	wallpaper=$(get_themes | rofi -dmenu -theme $RASI) # Mostra o Rofi para escolher o Wallpaper
+walList() {
+	find $walDir -iname '*.png' -o -iname '*.jpg' > $wlist
+	getWal			
 
-    if [ x"Current" = x"${wallpaper}" ]; then
-        exit
-    elif [ -n "${wallpaper}" ]; then
-    wallpath=$(cat $wlist | grep $wallpaper) # Procura o nome o Wallpaper na lista temporária
-    nippy-colorizer "$wallpath" # Usando o Nippy Colorizer para colorizar tudo de acordo com o Wallpaper escolhido
-    fi
+	while IFS= read -r tempWal; do
+		walName="$(cat $wlist | grep $tempWal | sed 's#.*/##')"
+		echo -en "$walName\0icon\x1f$tempWal\n"
+	done < $wlist
+}
+	
+wallpaper=$(walList | rofi -dmenu -theme $RASI) # Mostra o Rofi para escolher o Wallpaper
+walPath=$(cat $wlist | grep $(echo ${wallpaper#[[:space:]]*}))
+
+if [ x"Current" = x"${wallpaper}" ]; then
+	exit
+elif [ -n "${wallpaper}" ]; then	
+	#nippy-colorizer "$walPath" # Usando o Nippy Colorizer para colorizar tudo de acordo com o Wallpaper escolhido
+	selectMode
+fi

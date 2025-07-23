@@ -1,0 +1,27 @@
+#!/bin/bash
+
+rPolybar () {
+	killall polybar
+	polybar -r &
+}
+
+rPlank () {
+	killall plank
+	plank &
+}
+
+rWal () {
+	nitrogen --restore
+}
+
+if [[ "$1" == "polybar" ]]; then
+	rPolybar
+elif [[ "$1" == "plank" ]]; then
+	rPlank
+elif [[ "$1" == "wal" ]]; then
+	rWal
+elif [[ "$1" == "all" ]]; then
+	rWal
+	rPolybar
+	rPlank
+fi

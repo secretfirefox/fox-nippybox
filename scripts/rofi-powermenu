@@ -28,6 +28,7 @@ else
 	option_5=""
 	option_6=""
 fi
+
 cnflayout=`cat ${CNFR} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$cnflayout" == 'NO' ]]; then
 	yes=' Yes'
