@@ -4,15 +4,9 @@
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run,filebrowser,window";
     show-icons:                 false;
-    display-drun:               "";
-    display-run:                "";
-    display-filebrowser:        "";
-    display-window:             "";
-	drun-display-format:        "{name}";
-	window-format:              "{w} · {c} · {t}";
 }
+
 
 /*****----- Global Properties -----*****/
 @import                          "shared/colors.rasi"
@@ -46,33 +40,20 @@ configuration {
 
 /*****----- Main Window -----*****/
 window {
-    /* properties for window widget */
     transparency:                "real";
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       450px;
+    width:                       500px;
     x-offset:                    0px;
     y-offset:                    0px;
-
-    /* properties for all widgets */
-    enabled:                     true;
     margin:                      0px;
     padding:                     0px;
     border:                      2px solid;
     border-radius:               10px;
-    border-color:                @selected;
+    border-color:                @background-alt;
     cursor:                      "default";
-    /* Backgroud Colors */
-    background-color:            @background-colour;
-    /* Backgroud Image */
-    //background-image:          url("/path/to/image.png", none);
-    /* Simple Linear Gradient */
-    //background-image:          linear-gradient(red, orange, pink, purple);
-    /* Directional Linear Gradient */
-    //background-image:          linear-gradient(to bottom, pink, yellow, magenta);
-    /* Angle Linear Gradient */
-    //background-image:          linear-gradient(45, cyan, purple, indigo);
+    background-color:            @background;
 }
 
 /*****----- Main Box -----*****/
@@ -85,7 +66,7 @@ mainbox {
     border-radius:               0px 0px 0px 0px;
     border-color:                @border-colour;
     background-color:            transparent;
-    children:                    [ "inputbar", "listview" ];
+    children:                    [ "inputbar", "message", "listview" ];
 }
 
 /*****----- Inputbar -----*****/
@@ -99,22 +80,20 @@ inputbar {
     border-color:                @border-colour;
     background-color:            transparent;
     text-color:                  @foreground-colour;
-    children:                    [ "textbox-prompt-colon", "prompt" ];
+    children:                    [ "textbox-prompt-colon"];
 }
 
 prompt {
     enabled:                     true;
-    padding:                     8px 12px;
-    border-radius:               10px;
-    background-color:            @selected;
-    text-color:                  @background;
+    background-color:            inherit;
+    text-color:                  inherit;
 }
 textbox-prompt-colon {
     enabled:                     true;
     padding:                     8px 10px;
     border-radius:               10px;
     expand:                      false;
-    str:                         "";
+    str:                         "󰕲 ROAR - Rofi Of All Rofi";
     background-color:            @selected;
     text-color:                  @background;
 }
@@ -122,10 +101,10 @@ entry {
     enabled:                     true;
     padding:                     8px 12px;
     border-radius:               10px;
-    background-color:            @background-alt;
+    background-color:            @selected;
     text-color:                  @background;
     cursor:                      text;
-    placeholder:                 "";
+    placeholder:                 "Search";
     placeholder-color:           inherit;
 }
 
@@ -133,7 +112,7 @@ entry {
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       7;
+    lines:                       8;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -164,12 +143,12 @@ element {
     enabled:                     true;
     spacing:                     10px;
     margin:                      0px;
-    padding:                     8px;
+    padding:                     5px 10px;
     border:                      0px solid;
     border-radius:               10px;
     border-color:                @border-colour;
     background-color:            transparent;
-    text-color:                  @background-colour;
+    text-color:                  @foreground-colour;
     cursor:                      pointer;
 }
 element normal.normal {
@@ -190,7 +169,7 @@ element selected.normal {
 }
 element selected.urgent {
     background-color:            var(selected-urgent-background);
-    text-color:                  var(selected-urgent-foreground);
+    text-color:                  var(selected-urgent-background);
 }
 element selected.active {
     background-color:            var(selected-active-background);
@@ -233,7 +212,7 @@ mode-switcher{
     border-radius:               10px;
     border-color:                @border-colour;
     background-color:            transparent;
-    text-color:                  @foreground-colour;
+    text-color:                  @background-colour;
 }
 button {
     padding:                     8px 12px;
@@ -268,7 +247,7 @@ textbox {
     vertical-align:              0.5;
     horizontal-align:            0.0;
     highlight:                   none;
-    placeholder-color:           @background-colour;
+    placeholder-color:           @foreground-colour;
     blink:                       true;
     markup:                      true;
 }
