@@ -1,0 +1,30 @@
+#! /bin/bash
+
+if loc=$(curl -sf https://ipinfo.io/json); then ## Usando o argumento -sf para silenciar o curl e repassar o status de falha ao if
+	echo "## Connection OK"
+	echo "## Detecting Latitude and Longitude..."
+
+	## Usando o read para ler a Latitude e Longitude...
+	IFS=, read lat lon <<EOF
+$(printf '%s' "$loc"| awk -F'"' '/loc/ { print $4 }')
+EOF
+	## ^ Usando o printf para exibir a saída e usando o awk para detectar padrões
+
+else
+	## Se a conexão falhar, usar as coordenadas padrão
+	echo "## ERROR: Connection failed"
+	echo "## Using Latitude and Longitude 0:0"
+	
+	lat=0
+	lon=0
+fi
+
+if [[ "$1" == "--geo" ]]; then
+	echo -e "Latitude: $lat\nLongitude: $lon"
+elif [[ "$1" == "--info" ]]; then
+	echo -e "\n## Redshift Info"
+	exec redshift -p -l "$lat:$lon"
+else
+	echo -e "\n##Starting Redshift..."
+	exec redshift -l "$lat:$lon" "$@"
+fi

@@ -175,8 +175,8 @@ menu.border.color:              #${get_colors_bg}
 menu.separator.color:           #${get_colors_bg}
 
 menu.title.bg:                  flat solid
-menu.title.bg.color:            #$(get_colors 1)
-menu.title.text.color:          #$(get_colors 7)
+menu.title.bg.color:            #${get_colors_bg}
+menu.title.text.color:          #$(get_colors 1)
 menu.title.text.justify:        Center
 
 menu.items.bg:                  flat solid
@@ -187,10 +187,10 @@ menu.items.disabled.text.color: #$(get_colors 1)
 
 menu.items.active.bg:           flat solid
 menu.items.active.bg.color:     #$(get_colors 4)
-menu.items.active.text.color:   #${get_colors_bg}
+menu.items.active.text.color:   #${get_colors_fg}
 
 # Active window
-window.active.border.color:                           #$(get_colors 4)
+window.active.border.color:                           #$(get_colors 1)
 
 window.active.title.bg:                               solid flat
 window.active.title.bg.color:                         #1e1f29
@@ -243,7 +243,7 @@ window.active.button.toggled.pressed.bg:              parentrelative
 window.active.button.toggled.pressed.image.color:     #$(get_colors 5)
 
 # Inactive window
-window.inactive.border.color:                         #$(get_colors 5)
+window.inactive.border.color:                         #$(get_colors 4)
 
 window.inactive.title.bg:                             flat solid
 window.inactive.title.bg.color:                       #1e1f29
@@ -337,11 +337,11 @@ padding.width:               15
 padding.height:              10
 window.handle.width:         0
 window.client.padding.width: 0
-window.label.text.justify:   center
+window.label.text.justify:   right
 
 EOF
 	} > $obThemeFile
-	cp $obThemeFile $obThemeFolder
+	mv $obThemeFile $obThemeFolder
 }
 
 check_theme(){
@@ -353,11 +353,7 @@ check_theme(){
 
 ## Verificando a Entrada do Comando
 if [[ -z "$1" ]]; then
-
-	imgFolder=$(xdg-user-dir PICTURES)
-	cd $imgFolder
-
-	wallpaper="$(yad --file --image-filter)"
+	echo "ERRO: Wallpaper não selecionado"
 else
 	wallpaper="$1"
 fi 

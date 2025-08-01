@@ -20,6 +20,12 @@ if [ $1 = "daemon" ]; then
 		fi
 	done;
 elif [ $1 = "rofi" ]; then
-	INPUT=$(echo "`tac $HISTORY`" | rofi -dmenu -i -theme $RASI)
+	INPUT=$(echo "$(tac $HISTORY)" | rofi -dmenu -i -theme $RASI)
 	[[ -z "$INPUT" ]] || echo -e "$INPUT" | xclip -selection "clipboard" -rmlastnl
+	
+	## Apagar o Histórico do Nippy Clippy
+	if [[ "$INPUT" == "Clear History" ]]; then
+		rm $HISTORY
+		echo "Clear History" >> $HISTORY
+	fi
 fi

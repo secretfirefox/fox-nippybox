@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-### Created by ilsenatorov
-### Change WALLPAPERDIR to the directory where you store wallpapers
-
 RASI="$HOME/.config/rofi/wall.rasi"
+confirmRASI="$HOME/.config/rofi/wallConfirm.rasi"
 walDir="/usr/share/backgrounds" # Wallpapers do Sistema
 wlist="$HOME/.cache/wlist" # Lista temporária de Wallpapers
 userPicsDir=$(xdg-user-dir PICTURES) # Diretório de Imagens
@@ -16,18 +14,9 @@ rofiMode () {
 }
 
 runRofiMode () {
-	echo -e "$option1\n$option2\n$option3" | rofi -dmenu -theme $RASI
+	echo -e "$option1\n$option2\n$option3" | rofi -dmenu -theme $confirmRASI
 }
 
-runMode () {
-	if [[ "$1" == '--opt1' ]]; then
-		nippy-wal --colorize "$walPath"
-	elif [[ "$1" == '--opt2' ]]; then
-		nippy-wal --wallpaper "$walPath"
-	elif [[ "$1" == '--opt3' ]]; then
-		nippy-wal --lockscreen "$walPath"
-	fi
-}
 
 selectMode () {
 	rofiMode
@@ -35,13 +24,13 @@ selectMode () {
 	
 	case ${choose} in
 	$option1)
-		runMode --opt1
+		nippy-wal --colorize "$walPath"
         ;;
     $option2)
-		runMode --opt2
+		nippy-wal --wallpaper "$walPath"
         ;;
     $option3)
-		runMode --opt3
+		nippy-wal --lockscreen "$walPath"
         ;;
     esac
 }
@@ -73,6 +62,5 @@ walPath=$(cat $wlist | grep $(echo ${wallpaper#[[:space:]]*}))
 if [ x"Current" = x"${wallpaper}" ]; then
 	exit
 elif [ -n "${wallpaper}" ]; then	
-	#nippy-colorizer "$walPath" # Usando o Nippy Colorizer para colorizar tudo de acordo com o Wallpaper escolhido
 	selectMode
 fi

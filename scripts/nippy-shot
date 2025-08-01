@@ -4,7 +4,6 @@
 ## Modificado por Rapoelho, para incluir a opção desse Script ser um Pipemenu e para uso no Nippybox
 ## Script to take screenshots on Archcraft.
 
-
 # pipemenu
 pipemenu () {
 	MENUS_LIBDIR="$HOME/.config/openbox/"
@@ -36,16 +35,9 @@ fi
 
 # notify and view screenshot
 notify_view () {
-	#notify_cmd_shot='dunstify -u low -h string:x-dunst-stack-tag:obscreenshot -i /usr/share/archcraft/icons/dunst/picture.png'
 	notify_cmd_shot='dunstify -u low -h string:x-dunst-stack-tag:obscreenshot'
-	${notify_cmd_shot} "Copied to clipboard."
 	paplay /usr/share/sounds/freedesktop/stereo/screen-capture.oga &>/dev/null &
-	viewnior ${dir}/"$file"
-	if [[ -e "$dir/$file" ]]; then
-		${notify_cmd_shot} "Screenshot Saved."
-	else
-		${notify_cmd_shot} "Screenshot Deleted."
-	fi
+	${notify_cmd_shot} "Screenshot Saved."
 }
 
 # copy screenshot to clipboard
@@ -56,7 +48,6 @@ copy_shot () {
 # countdown
 countdown () {
 	for sec in `seq $1 -1 1`; do
-		#dunstify -t 1000 -h string:x-dunst-stack-tag:screenshottimer -i /usr/share/archcraft/icons/dunst/timer.png "Taking shot in : $sec"
 		dunstify -t 1000 -h string:x-dunst-stack-tag:screenshottimer "Taking shot in : $sec"
 		sleep 1
 	done

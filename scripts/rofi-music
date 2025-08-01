@@ -17,7 +17,6 @@ if [[ -z "$player" ]]; then
 else
 	music=`playerctl metadata title`
 	prompt="Player: $player"
-	#mesg="`mpc -f "%title%" current` :: `mpc status | grep "#" | awk '{print $3}'`"
 	mesg=$(playerctl -p "$player" metadata --format "{{title}} :: current {{ duration(position) }}")
 fi
 
