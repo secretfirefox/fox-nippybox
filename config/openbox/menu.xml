@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com> -->
-<!DOCTYPE menu [
-  <!ENTITY pipes "/usr/share/archcraft/openbox/pipemenus">
-]>
 <openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/  file:///usr/share/openbox/menu.xsd">
   <menu id="root-menu" title="Menu" label="Openbox 3">
 		<separator label="Apps"/>
@@ -11,36 +7,65 @@
 				<command>alacritty</command>
 			</action>
 		</item>
+		
 		<item label="File Manager">
 			<action name="Execute">
 				<command>thunar</command>
 			</action>
 		</item>
+		
 		<item label="Web Browser">
 			<action name="Execute">
 				<command>firefox</command>
 			</action>
 		</item>
+		
 		<item label="Text Editor">
 			<action name="Execute">
 				<command>geany</command>
 			</action>
 		</item>
+		<separator/>
 		<menu id="applications" label="All Applications" execute="xdg_menu --format openbox3-pipe --root-menu /etc/xdg/menus/arch-applications.menu" />
-		<!--<separator/>-->
+		
 		<separator label="Screen Capture"/>
 		<menu id="shots" execute="nippy-shot --pipe" label="Screenshot"/>
 		<menu id="rec" execute="nippy-rec --pipe" label="Screen Recorder"/>
-		<!--<separator/>-->
+
 		<separator label="System"/>
 		<menu id="preferences" label="Preferences">
-			<menu id="obconfig" label="Openbox">
-				<item label="Settings">
+			<separator label="Desktop Settings"/>
+			
+			<item label="Appearance Settings">
+				<action name="Execute">
+					<command>xfce4-appearance-settings</command>
+				</action>
+			</item>
+			
+			<item label="Change Wallpaper">
+				<action name="Execute">
+					<command>rofi-wal</command>
+				</action>
+			</item>
+			
+			<menu id="CompositingPipeMenu" execute="nippy-compositor pipe" label="Compositor"/>
+			
+			<menu id="obconfig" label="Openbox Settings">
+				<separator label="Openbox"/>
+				<item label="Openbox Settings">
 					<action name="Execute">
 						<command>obconf-qt</command>
 					</action>
 				</item>
+				
 				<separator/>
+				<item label="Reconfigure">
+					<action name="Reconfigure"/>
+				</item>
+				<item label="Restart">
+					<action name="Restart"/>
+				</item>
+				<separator label="Edit Files"/>
 				<item label="Edit menu.xml">
 					<action name="Execute">
 						<command>exo-open ~/.config/openbox/menu.xml</command>
@@ -56,48 +81,29 @@
 						<command>exo-open ~/.config/openbox/autostart</command>
 					</action>
 				</item>
-				<separator/>
-				<item label="Reconfigure">
-					<action name="Reconfigure"/>
-				</item>
-				<item label="Restart">
-					<action name="Restart"/>
-				</item>
 			</menu>
-			<!--<menu id="CompositingPipeMenu" execute="&pipes;/ac-compositor" label="Compositor"/>
-			<menu id="PanelPipeMenu" execute="&pipes;/ac-panel" label="Panel / Bar"/>-->
-			<menu id="XrandrPipeMenu" execute="ac-randr" label="Display/Monitor"/>
+			<!--<menu id="PanelPipeMenu" execute="&pipes;/ac-panel" label="Panel / Bar"/>-->
 			<separator/>
 			<!--<menu id="StylePipeMenu" execute="&pipes;/ac-change-style" label="Change Style"/>
 			<menu id="FontPipeMenu" execute="&pipes;/ac-change-fonts" label="Change Font"/>
 			<menu id="SchemePipeMenu" execute="&pipes;/ac-change-scheme" label="Terminal Colors"/>
 			<separator/>-->
-			<item label="Change Wallpaper">
-				<action name="Execute">
-					<command>nitrogen</command>
-				</action>
-			</item>
-			<item label="Appearance Settings">
-				<action name="Execute">
-					<command>xfce4-appearance-settings</command>
-				</action>
-			</item>
-			<!--<item label="QT5 Settings">
+			
+			<separator label="Qt Settings"/>
+			<item label="QT5 Settings">
 				<action name="Execute">
 					<command>qt5ct</command>
 				</action>
 			</item>
+			
 			<item label="QT6 Settings">
 				<action name="Execute">
 					<command>qt6ct</command>
 				</action>
 			</item>
-			<item label="Kvantum Manager">
-				<action name="Execute">
-					<command>kvantummanager</command>
-				</action>
-			</item>-->
-			<separator/>
+			
+			<separator label="System Settings"/>
+			<menu id="XrandrPipeMenu" execute="ac-randr" label="Display / Monitor"/>
 			<item label="Audio Settings">
 				<action name="Execute">
 					<command>pavucontrol</command>
@@ -114,7 +120,7 @@
 				</action>
 			</item>
 		</menu>
-		<separator/>
+		<menu id="SystemPipeMenu" execute="nippy-sysinfo --pipe" label="Stats"/>
 		<item label="Log Out">
 			<action name="Execute">
 				<command>rofi-powermenu</command>
