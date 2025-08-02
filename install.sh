@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-ondeEstou=$(dirname "$0")
-if [[ "$diretorio" == "." ]]; then
-    ondeEstou=$(pwd)
+OndeEstou=$(dirname "$0")
+if [[ "$OndeEstou" == "." ]]; then
+    OndeEstou=$(pwd)
 fi
 
 LightDMBack="Oranges by tamanna_rumee.png"
@@ -47,7 +47,10 @@ finalizarConfig () {
 
 	echo "## Aplicando o Esquema de Cores"
 	bash $HOME/.local/bin/nippy-colorizer "/usr/share/backgrounds/Tongue Cat by Nennieinszweidrei.png" --no-X11
-
+	
+	echo "## Aplicando Temas"
+	xfconf-query -c xsettings -p /Net/ThemeName -s "Dracula"
+	xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
 
 	echo "## Gerando o .xinitrc..."
 
@@ -87,6 +90,13 @@ instalarExtras () {
 	sudo mv "/usr/share/pixmaps/$LightDMBack" "/usr/share/pixmaps/background.png"
 	sudo sed -i 's|^#\(background=.*\)|\1|' /etc/lightdm/lightdm-gtk-greeter.conf # Descomentando a linha certa para que o Lightdm configure o Background
 	sudo sed -i 's|^background=.*|background=/usr/share/pixmaps/background.png|' /etc/lightdm/lightdm-gtk-greeter.conf # Configurando o Background do Lightdm
+	
+	echo "## Definindo o Tema do LightDM..."
+	sudo sed -i 's|^#\(theme-name=.*\)|\1|' /etc/lightdm/lightdm-gtk-greeter.conf
+	sudo sed -i 's|^theme-name=.*|theme-name=Dracula|' /etc/lightdm/lightdm-gtk-greeter.conf
+
+	sudo sed -i 's|^#\(icon-theme-name=.*\)|\1|' /etc/lightdm/lightdm-gtk-greeter.conf
+	sudo sed -i 's|^icon-theme-name=.*|icon-theme-name=Papirus-Dark|' /etc/lightdm/lightdm-gtk-greeter.conf
 	
 	echo "## Habilitando o Suporte à Impressão"
 	sudo systemctl enable cups
