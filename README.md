@@ -70,13 +70,15 @@ Não é só do Openbox e dos Scripts que o Nippybox é formado, mas também de u
 - `nippy-shot`: Tira capturas de tela usando o Maim. Pode ser usado como um Pipemenu do Openbox.
 - `nippy-sysinfo`: Exibe informações do sistema. Era um Pipemenu do Archcraft, mas que acabei transformando num Fetch bem simples;
 - `nippy-wal`: Aplica papeis de parede no Desktop ou na tela de bloqueio. Inicialmente era um Script do Archcraft, mas adicionei o suporte ao nippy-colorizer;
-- `nippy-clippy`: É um gerenciador de área de transferência. Apenas isso. Foi um Script que peguei de Andrea Fortuna, e implementei no Nippybox. Esse Script também executa com o Rofi.
+- `nippy-redshift`: Um Script que gerencia o Redshift. Ele detecta a localização e inicia o Redshift com essa localização.
+- `nippy-compositor`: Um Script para gerenciar o Compositor. Como o Nippybox vem com dois compositores e apenas um pode ser usado por vez, o `nippy-compositor` existe para ter uma forma de alternar entre o **picom** (padrão) e o **xcompmgr** (fallback).
+- `nippy-clippy`: É um gerenciador de área de transferência. Apenas isso. Foi um Script que peguei de [Andrea Fortuna](https://andreafortuna.org/2024/08/04/a-minimalist-approach-to-clipboard-management-in-linux-crafting-a-custom-solution), e implementei no Nippybox. Esse Script também executa com o Rofi.
 - `nippy-roar`: Um Rofi com uma lista dos outros Rofi que vem com o Nippybox. Nada mais que isso.
-- `rofi-launcher`: Apenas um Script para exibir o Launcher e o Runner com um comando menor.
+- `rofi-launcher`: Apenas um Script para exibir o Launcher, o Runner e a Lista de Atalhos com um comando menor
 - `rofi-music`: Controla Players compatíveis com o MPRIS. Um player de cada vez. Era um dos scripts do Archcraft, mas o do Archcraft controlava somente o MPD.
 - `rofi-powermenu`: Um menu de sessão. É isso.
-- `rofi-wifi`: Uma interface para o nm-cli. É um script que foi feito por Eric Murphy, e que coloquei no Nippybox por ser simples.
-- `rofi-emoji`: Um seletor de emojis e que lembra quais foram utilizados anteriormente. Foi feito por Marty Oehme
+- `rofi-wifi`: Uma interface para o nm-cli. É um script que foi feito por [Eric Murphy](https://github.com/ericmurphyxyz/rofi-wifi-menu), e que coloquei no Nippybox por ser simples.
+- `rofi-emoji`: Um seletor de emojis e que lembra quais foram utilizados anteriormente. Foi feito por [Marty Oehme](https://github.com/marty-oehme/bemoji).
 - `rofi-wal`: Um seletor de Papel de Parede. Ele exibe apenas o nome dos arquivos dos Wallpapers e aplica eles usando o nippy-colorizer.
 
 ## Problemas conhecidos
@@ -86,5 +88,5 @@ Não é só do Openbox e dos Scripts que o Nippybox é formado, mas também de u
 
 ## TODO
 - Colocar o tema Dracula (GTK) e os ícones Papirus no Script de instalação;
-- Fazer um Script para alternar entre o `picom` e o `xcompmgr`, principalmente em casos em que o Picom causa problemas;
+- ~~Fazer um Script para alternar entre o `picom` e o `xcompmgr`, principalmente em casos em que o Picom causa problemas;~~ **(Feito)**
 - Configurar o Better Lockscreen para bloquear a tela quando o computador ficar inativo por um tempo.
