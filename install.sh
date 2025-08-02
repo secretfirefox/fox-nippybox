@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 set -e
 
-OndeEstou=`pwd`
+ondeEstou=$(dirname "$0")
+if [[ "$diretorio" == "." ]]; then
+    ondeEstou=$(pwd)
+fi
+
 LightDMBack="Oranges by tamanna_rumee.png"
 
 verificarDiretorios () {
+	echo -e "\n## Verificando Diretórios..."
 	mkdir -p $HOME/.local/bin
 	mkdir -p $HOME/.config
 	mkdir -p $HOME/.themes/nippybox
@@ -14,20 +19,19 @@ verificarDiretorios () {
 instalarPacotes () {
 	echo -e "\n## Instalando Pacotes Básicos..."
 	sleep 1
-	sudo pacman -Syu nano openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa playerctl clipnotify noto-fonts-emoji bash-completion mate-system-monitor brightnessctl system-config-printer --noconfirm --needed
+	sudo pacman -Syu nano fastfetch openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa playerctl clipnotify noto-fonts-emoji bash-completion mate-system-monitor brightnessctl system-config-printer bluez-utils redshift curl qt5ct qt6ct --noconfirm --needed
 }
 
 instalarFontes () {
 	echo -e "\n## Instalando as Fontes..."
 	sudo cp fonts/* /usr/share/fonts
 	sudo fc-cache -f
-	cd ..
+	cd $ondeEstou
 }
 
 copiarConfigs () {
 	echo -e "## Copiando as Configurações..."
 	cp -r $OndeEstou/config/* $HOME/.config/
-	cd ..
 
 	echo "## Copiando Temas..."
 	cp -r $OndeEstou/themes/* $HOME/.themes/
@@ -56,16 +60,17 @@ exec openbox-session
 
 EOF
 	} > $HOME/.xinitrc
-
-	echo "## Configurando o Plano de Fundo da Tela de Bloqueio..."
-	#betterlockscreen -u "/usr/share/backgrounds/Tongue Cat by Nennieinszweidrei.png"
-
 }
 
 instalarExtras () {
 	echo "## Instalando Pacotes Extras..."
 	sleep 1
-	sudo pacman -S lightdm lightdm-gtk-greeter mate-system-monitor galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox gst-plugins-ugly gst-plugins-good gst-plugins-base gst-plugins-bad gst-libav gstreamer ntfs-3g mpv-mpris --noconfirm --needed
+	sudo pacman -S lightdm lightdm-gtk-greeter mate-system-monitor galculator xarchiver mpv xreader arj cpio lha lrzip lzip lzop p7zip unarj unzip cups sane thunar-volman thunar-archive-plugin thunar-media-tags-plugin tumbler ffmpegthumbnailer libgepub libgsf libopenraw poppler-glib freetype2 firefox gst-plugins-ugly gst-plugins-good gst-plugins-base gst-plugins-bad gst-libav gstreamer ntfs-3g mpv-mpris webp-pixbuf-loader libwebp tumbler papirus-icon-theme --noconfirm --needed
+
+	if ! [ -z "$(ls /sys/class/power_supply/)" ]; then
+		echo "## Instalando o TLP..."
+		sudo pacman -S tlp --noconfirm --needed
+	fi
 
 	echo "## Instalando Suporte ao Flatpak..."
 	sleep 1
@@ -83,7 +88,7 @@ instalarExtras () {
 	sudo sed -i 's|^#\(background=.*\)|\1|' /etc/lightdm/lightdm-gtk-greeter.conf # Descomentando a linha certa para que o Lightdm configure o Background
 	sudo sed -i 's|^background=.*|background=/usr/share/pixmaps/background.png|' /etc/lightdm/lightdm-gtk-greeter.conf # Configurando o Background do Lightdm
 	
-	echo "## Habilitando o CUPS"
+	echo "## Habilitando o Suporte à Impressão"
 	sudo systemctl enable cups
 	
 	echo "## Habilitando o Bluetooth"
@@ -121,7 +126,7 @@ instalarAUR () {
 	yay -Y –gendb
 
 	echo "## Instalando os Pacotes do AUR..."
-	yay -S betterlockscreen --noconfirm
+	yay -S betterlockscreen dracula-gtk-theme --noconfirm
 
 	cd $OndeEstou
 }
@@ -143,4 +148,4 @@ instalarAUR
 finalizarConfig
 creditos
 sleep 5
-startx
+reboot
