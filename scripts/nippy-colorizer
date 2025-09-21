@@ -17,6 +17,11 @@ obThemeFile="themerc"
 obThemeName="nippybox"
 obThemeFolder="$HOME/.themes/$obThemeName/openbox-3"
 
+### Tema da Plank
+plankFile="dock.theme"
+plankTheme="Nippy"
+plankFolder="$HOME/.local/share/plank/themes/$plankTheme"
+
 file=$HOME/.Xresources
 
 ## Obtendo as Cores do Tema
@@ -143,6 +148,72 @@ EOF
 	} > $dunstFile
 	mv $dunstFile $dusntFolder
 	pkill dunst && dunst & > /dev/null
+}
+
+hex2rgb () {
+		hex=$1
+		first="${hex:0:1}"
+
+		if [ "#" = "$first" ]; then
+			hex="${hex:1:6}"
+		fi
+
+		hex_r="${hex:0:2}"
+		hex_g="${hex:2:2}"
+		hex_b="${hex:4:2}"
+
+		rgba_r=`echo $((0x${hex_r}))`
+		rgba_g=`echo $((0x${hex_g}))`
+		rgba_b=`echo $((0x${hex_b}))`
+
+		echo "$rgba_r;;$rgba_g;;$rgba_b;;255"
+}
+
+## Função para Colorir a Plank
+plank_color() {
+	
+	plankBadge="$(hex2rgb $(get_colors 1))"
+	plankBG="$(hex2rgb ${get_colors_bg})"
+	
+		{
+	cat <<EOF
+[PlankTheme]
+TopRoundness=8
+BottomRoundness=0
+LineWidth=2
+OuterStrokeColor=${plankBadge}
+FillStartColor=${plankBG}
+FillEndColor=${plankBG}
+InnerStrokeColor=${plankBG}
+
+[PlankDockTheme]
+HorizPadding=0
+TopPadding=-7
+BottomPadding=1
+ItemPadding=3
+IndicatorSize=5
+IconShadowSize=1
+UrgentBounceHeight=1.6666666666666667
+LaunchBounceHeight=0.625
+FadeOpacity=1
+ClickTime=300
+UrgentBounceTime=600
+LaunchBounceTime=600
+ActiveTime=300
+SlideTime=300
+FadeTime=250
+HideTime=150
+GlowSize=30
+GlowTime=10000
+GlowPulseTime=2000
+UrgentHueShift=0
+ItemMoveTime=450
+CascadeHide=true
+BadgeColor=${plankBadge}
+EOF
+} > $plankFile
+mv $plankFile $plankFolder
+
 }
 
 ## Função para Colorir o Rofi
@@ -373,6 +444,8 @@ cp ~/.cache/wal/colors.Xresources ~/.Xresources
 ## Executando as Funções
 cd ~/.local/bin
 fill_color
+
+plank_color
 
 echo "## Colorindo as Notificações"
 dunst_color

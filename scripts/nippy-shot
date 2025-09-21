@@ -7,18 +7,20 @@
 # pipemenu
 pipemenu () {
 	MENUS_LIBDIR="$HOME/.config/openbox/"
-	if ! . "$MENUS_LIBDIR/pipebase.cfg" 2> /dev/null; then
+	if ! source "$MENUS_LIBDIR/pipebase.cfg" 2> /dev/null; then
 		echo $"Error: Failed to locate pipebase.cfg in $MENUS_LIBDIR" >&2
 		exit 1
 	fi
 
 	menuStart
-        menuItem 'Screenshot Now' "$0 --now"
-        menuItem 'Screenshot In 5s' "$0 --in5"
-        menuItem 'Screenshot In 10s' "$0 --in10"
-        menuItem 'Screenshot Area' "$0 --area"
-        menuItem 'Screenshot Window' "$0 --win"
-    menuEnd
+		menuSeparator 'Fullscreen'
+		menuItem 'Screenshot Now' "$0 --now"
+		menuItem 'Screenshot In 5s' "$0 --in5"
+		menuItem 'Screenshot In 10s' "$0 --in10"
+		menuSeparator 'Area'
+		menuItem 'Screenshot Area' "$0 --area"
+		menuItem 'Screenshot Window' "$0 --win"
+	menuEnd
 }
 
 # file
