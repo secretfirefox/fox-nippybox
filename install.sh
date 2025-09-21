@@ -11,6 +11,7 @@ LightDMBack="Oranges by tamanna_rumee.png"
 verificarDiretorios () {
 	echo -e "\n## Verificando Diretórios..."
 	mkdir -p $HOME/.local/bin
+	mkdir -p $HOME/.local/share/plank/themes
 	mkdir -p $HOME/.config
 	mkdir -p $HOME/.themes/nippybox
 	mkdir -p $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/
@@ -51,6 +52,11 @@ finalizarConfig () {
 	echo "## Aplicando Temas"
 	xfconf-query -c xsettings -p /Net/ThemeName -s "Dracula"
 	xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
+
+	echo "## Configurando a Doca"
+	dconf write /net/launchpad/plank/docks/dock1/zoom-enabled true
+	dconf write /net/launchpad/plank/docks/dock1/theme "'Nippy'"
+	
 
 	echo "## Gerando o .xinitrc..."
 
@@ -114,6 +120,24 @@ instalarExtras () {
 
 }
 
+temaPlank () {
+	{
+		cat <<EOF
+		
+[PlankDrawingTheme]
+TopRoundness=6
+BottomRoundness=6
+LineWidth=0
+OuterStrokeColor=41;;41;;41;;255
+FillStartColor=0;;0;;0;;217
+FillEndColor=0;;0;;0;;217
+InnerStrokeColor=255;;255;;255;;255
+
+EOF
+	} > $HOME/.local/share/plank/themes/hover.theme
+	
+}
+
 instalarAUR () {
 	cd /tmp
 	echo -e "\nHá alguns pacotes que compõe o Nippybox que estão no AUR (Arch Linux User Repository), e para instalar eles é necessário o uso de um ajudante de AUR. O yay é o Ajudante de AUR que esse Script utiliza."
@@ -156,6 +180,7 @@ instalarFontes
 copiarConfigs
 instalarAUR
 finalizarConfig
+temaPlank
 creditos
 sleep 5
 reboot
