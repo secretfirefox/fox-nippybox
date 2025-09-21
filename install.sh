@@ -52,6 +52,7 @@ finalizarConfig () {
 	echo "## Aplicando Temas"
 	xfconf-query -c xsettings -p /Net/ThemeName -s "Dracula"
 	xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
+	xfconf-query -c xsettings -p /Gtk/FontName -s "Cantarell 9"
 
 	echo "## Configurando a Doca"
 	dconf write /net/launchpad/plank/docks/dock1/zoom-enabled true
