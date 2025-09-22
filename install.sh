@@ -24,8 +24,7 @@ instalarPacotes () {
 	sleep 1
 	sudo pacman -Syu nano fastfetch openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa playerctl clipnotify noto-fonts-emoji bash-completion mate-system-monitor brightnessctl system-config-printer bluez-utils redshift curl qt5ct qt6ct --noconfirm --needed
 	
-	echo "PacotesBasicos=OK" > log.txt
-
+	echo "PacotesBasicos=OK" >> log.txt
 }
 
 instalarExtras () {
@@ -75,8 +74,7 @@ instalarExtras () {
 	echo "## Corrigindo o Thunar..."
 	sudo nippy-hooks fix-thunar
 	
-	echo "PacotesExtras=OK" > log.txt
-
+	echo "PacotesExtras=OK" >> log.txt
 }
 
 instalarFontes () {
@@ -85,8 +83,7 @@ instalarFontes () {
 	sudo fc-cache -f
 	cd $ondeEstou
 	
-	echo "Fontes=OK" > log.txt
-
+	echo "Fontes=OK" >> log.txt
 }
 
 copiarConfigs () {
@@ -100,7 +97,7 @@ copiarConfigs () {
 	cp -r $OndeEstou/scripts/* $HOME/.local/bin/
 	chmod +x $HOME/.local/bin/*
 	
-	echo "Configs=OK" > log.txt
+	echo "Configs=OK" >> log.txt
 }
 
 chaoticAUR () {
@@ -116,7 +113,7 @@ chaoticAUR () {
 	
 	yay -S dracula-gtk-theme --noconfirm
 	
-	echo "ChaoticAUR=OK" > log.txt
+	echo "ChaoticAUR=OK" >> log.txt
 }
 
 finalizarConfig () {
@@ -148,7 +145,7 @@ exec openbox-session
 EOF
 	} > $HOME/.xinitrc
 
-	echo "ConfigsFinais=OK" > log.txt
+	echo "ConfigsFinais=OK" >> log.txt
 }
 
 temaPlank () {
@@ -167,7 +164,7 @@ InnerStrokeColor=255;;255;;255;;255
 EOF
 	} > $HOME/.local/share/plank/themes/Nippy/hover.theme
 
-	echo "TemaPlank=OK" > log.txt
+	echo "TemaPlank=OK" >> log.txt
 }
 
 creditos () {
