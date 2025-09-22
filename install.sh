@@ -99,7 +99,7 @@ chaoticAUR () {
 	
 	sudo sed -i '$a\[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist' /etc/pacman.conf
 		
-	sudo pacman -Syu yay betterlockscreen dracula-gtk-theme --noconfirm --needed
+	sudo pacman -Syu yay betterlockscreen --noconfirm --needed
 	
 	yay -S dracula-gtk-theme --noconfirm
 }
