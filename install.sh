@@ -15,12 +15,17 @@ verificarDiretorios () {
 	mkdir -p $HOME/.config
 	mkdir -p $HOME/.themes/nippybox
 	mkdir -p $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/
+	
+	echo "Diretorios=OK" > log.txt
 }
 
 instalarPacotes () {
 	echo -e "\n## Instalando Pacotes Básicos..."
 	sleep 1
 	sudo pacman -Syu nano fastfetch openbox xorg obconf-qt archlinux-xdg-menu polybar rofi libnotify dunst nitrogen picom xcompmgr plank xfce4-settings xfce4-power-manager python-pywal maim xclip slop xdg-user-dirs ffmpeg acpi thunar alacritty geany pavucontrol viewnior network-manager-applet blueman gvfs xfce4-terminal pulsemixer xorg-xbacklight pulseaudio pulseaudio-bluetooth pulseaudio-alsa playerctl clipnotify noto-fonts-emoji bash-completion mate-system-monitor brightnessctl system-config-printer bluez-utils redshift curl qt5ct qt6ct --noconfirm --needed
+	
+	echo "PacotesBasicos=OK" > log.txt
+
 }
 
 instalarExtras () {
@@ -69,6 +74,9 @@ instalarExtras () {
 
 	echo "## Corrigindo o Thunar..."
 	sudo nippy-hooks fix-thunar
+	
+	echo "PacotesExtras=OK" > log.txt
+
 }
 
 instalarFontes () {
@@ -76,6 +84,9 @@ instalarFontes () {
 	sudo cp fonts/* /usr/share/fonts
 	sudo fc-cache -f
 	cd $ondeEstou
+	
+	echo "Fontes=OK" > log.txt
+
 }
 
 copiarConfigs () {
@@ -88,6 +99,8 @@ copiarConfigs () {
 	echo "## Copiando Scripts..."
 	cp -r $OndeEstou/scripts/* $HOME/.local/bin/
 	chmod +x $HOME/.local/bin/*
+	
+	echo "Configs=OK" > log.txt
 }
 
 chaoticAUR () {
@@ -102,6 +115,8 @@ chaoticAUR () {
 	sudo pacman -Syu yay betterlockscreen --noconfirm --needed
 	
 	yay -S dracula-gtk-theme --noconfirm
+	
+	echo "ChaoticAUR=OK" > log.txt
 }
 
 finalizarConfig () {
@@ -132,6 +147,8 @@ exec openbox-session
 
 EOF
 	} > $HOME/.xinitrc
+
+	echo "ConfigsFinais=OK" > log.txt
 }
 
 temaPlank () {
@@ -149,6 +166,8 @@ InnerStrokeColor=255;;255;;255;;255
 
 EOF
 	} > $HOME/.local/share/plank/themes/Nippy/hover.theme
+
+	echo "TemaPlank=OK" > log.txt
 }
 
 creditos () {
@@ -157,15 +176,50 @@ creditos () {
 
 echo -e "\nBem-vindo ao instalador do Nippybox!\nO Nippybox é uma personalização do Openbox com o objetivo de ser simples de usar em que juntei algumas coisas legais por aí e que me agradaram."
 
-verificarDiretorios
-sleep 1
-instalarPacotes
-instalarExtras
-instalarFontes
-copiarConfigs
-chaoticAUR
-finalizarConfig
-temaPlank
-creditos
-sleep 5
-reboot
+if [ -e "log.txt" ]; then
+	source log.txt
+	
+	if ! [[ "$Diretorios" == "OK" ]]; then
+		verificarDiretorios
+	fi
+	
+	if ! [[ "$PacotesBasicos" == "OK" ]]; then
+		instalarPacotes
+	fi
+	
+	if ! [[ "$PacotesExtras" == "OK" ]]; then
+		instalarExtras
+	fi
+		
+	if ! [[ "$Fontes" == "OK" ]]; then
+		instalarFontes		
+	fi
+		
+	if ! [[ "$Configs" == "OK" ]]; then
+		copiarConfigs
+	fi
+		
+	if ! [[ "$ChaoticAUR" == "OK" ]]; then
+		chaoticAUR
+	fi
+		
+	if ! [[ "$ConfigsFinais" == "OK" ]]; then
+		finalizarConfig
+	fi
+		
+	if ! [[ "$TemaPlank" == "OK" ]]; then
+		temaPlank
+	fi	
+else
+	verificarDiretorios
+	instalarPacotes
+	instalarExtras
+	instalarFontes
+	copiarConfigs
+	chaoticAUR
+	finalizarConfig
+	temaPlank
+	creditos
+	sleep 5
+	reboot
+fi
