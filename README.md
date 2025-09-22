@@ -87,6 +87,6 @@ Não é só do Openbox e dos Scripts que o Nippybox é formado, mas também de u
 - Pode haver problemas de conexão com Fones Bluetooth quando o sistema volta da suspensão.
 
 ## TODO
-- Colocar o tema Dracula (GTK) e os ícones Papirus no Script de instalação;
+- ~~Colocar o tema Dracula (GTK) e os ícones Papirus no Script de instalação;~~ **(Feito)**
 - ~~Fazer um Script para alternar entre o `picom` e o `xcompmgr`, principalmente em casos em que o Picom causa problemas;~~ **(Feito)**
 - Configurar o Better Lockscreen para bloquear a tela quando o computador ficar inativo por um tempo.
