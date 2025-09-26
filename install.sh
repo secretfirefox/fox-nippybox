@@ -133,6 +133,12 @@ finalizarConfig () {
 	echo "## Configurando a Doca"
 	dconf write /net/launchpad/plank/docks/dock1/zoom-enabled true
 	dconf write /net/launchpad/plank/docks/dock1/theme "'Nippy'"
+	
+	echo "## Arrumando os Aplicativos dos Menus..."
+	sudo sed -i '$a\Hidden=true' /usr/share/applications/avahi-discover.desktop
+	sudo sed -i '$a\Hidden=true' /usr/share/applications/bvnc.desktop
+	sudo sed -i '$a\Hidden=true' /usr/share/applications/qv*
+	sudo sed -i '$a\Hidden=true' /usr/share/applications/rofi*
 
 	echo "## Gerando o .xinitrc..."
 	{
