@@ -509,21 +509,25 @@
         <command>nippy-shot --now</command>
       </action>
     </keybind>
+    
     <keybind key="A-Print">
       <action name="Execute">
         <command>nippy-shot --in5</command>
       </action>
     </keybind>
+    
     <keybind key="S-Print">
       <action name="Execute">
         <command>nippy-shot --in10</command>
       </action>
     </keybind>
+    
     <keybind key="C-Print">
       <action name="Execute">
         <command>nippy-shot --win</command>
       </action>
     </keybind>
+    
     <keybind key="W-Print">
       <action name="Execute">
         <command>nippy-shot --area</command>
@@ -535,27 +539,32 @@
         <command>nippy-keys bright --inc</command>
       </action>
     </keybind>
+    
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
         <command>nippy-keys bright --dec</command>
       </action>
     </keybind>
+    
     <!-- Volume -->
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
         <command>nippy-keys audio --inc</command>
       </action>
     </keybind>
+    
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
         <command>nippy-keys audio --dec</command>
       </action>
     </keybind>
+    
     <keybind key="XF86AudioMute">
       <action name="Execute">
         <command>nippy-keys audio --toggle</command>
       </action>
     </keybind>
+    
     <keybind key="XF86AudioMicMute">
       <action name="Execute">
         <command>nippy-keys audio --toggle-mic</command>
@@ -567,21 +576,25 @@
         <command>nippy-keys media --stop</command>
       </action>
     </keybind>
+    
     <keybind key="XF86AudioPlay">
       <action name="Execute">
         <command>nippy-keys media --play-pause</command>
       </action>
     </keybind>
+    
     <keybind key="XF86AudioPrev">
       <action name="Execute">
         <command>nippy-keys media --prev</command>
       </action>
     </keybind>
+    
     <keybind key="XF86AudioNext">
       <action name="Execute">
         <command>nippy-keys media --next</command>
       </action>
     </keybind>
+    
     <!-- ################################ Launch Applications ################################ -->
     <!-- Apps -->
     <keybind key="W-T">
@@ -615,51 +628,73 @@
         <command>rofi-launcher</command>
       </action>
     </keybind>
+    
+    <keybind key="W-F1">
+      <action name="Execute">
+        <command>rofi-launcher</command>
+      </action>
+    </keybind>    
+    
     <keybind key="A-F1">
       <action name="Execute">
         <command>rofi-launcher</command>
       </action>
     </keybind>
+    
     <keybind key="W-n">
       <action name="Execute">
         <command>rofi-wifi</command>
       </action>
     </keybind>
+    
     <keybind key="W-v">
       <action name="Execute">
         <command>nippy-clippy rofi</command>
       </action>
     </keybind>
+    
     <keybind key="W-S-e">
       <action name="Execute">
         <command>rofi-emoji</command>
       </action>
     </keybind>
+    
     <keybind key="W-b">
       <action name="Execute">
         <command>rofi-bluetooth</command>
       </action>
     </keybind>
+    
     <keybind key="W-m">
       <action name="Execute">
         <command>rofi-music</command>
       </action>
     </keybind>
+    
     <keybind key="W-x">
       <action name="Execute">
         <command>rofi-powermenu</command>
       </action>
     </keybind>
+    
     <keybind key="W-s">
       <action name="Execute">
         <command>rofi-screenshot</command>
       </action>
     </keybind>
+    
     <keybind key="A-F2">
       <action name="Execute">
         <command>rofi-launcher run</command>
       </action>
     </keybind>
+
+    <keybind key="W-F2">
+      <action name="Execute">
+        <command>rofi-launcher run</command>
+      </action>
+    </keybind>
+    
     <keybind key="W-S-w">
       <action name="Execute">
         <command>rofi-wal</command>
@@ -680,24 +715,26 @@
         <command>nippy-roar</command>
       </action>
     </keybind>
-    <!-- CLI Apps -->
+
     <!-- Misc -->
     <keybind key="W-l">
       <action name="Execute">
         <command>betterlockscreen --lock</command>
       </action>
     </keybind>
-    <!--<keybind key="W-p">
+    
+    <keybind key="W-p">
     <action name="Execute">
-      <command>ob-colorpicker</command>
+      <command>nippy-colorpicker rofi</command>
     </action>
   </keybind>
 
-  <keybind key="C-A-m">
+  <!--<keybind key="C-A-m">
     <action name="Execute">
       <command>ob-music</command>
     </action>
   </keybind>-->
+  
     <keybind key="W-Escape">
       <action name="Execute">
         <command>xkill</command>
