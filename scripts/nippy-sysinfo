@@ -23,8 +23,6 @@ menuItem "  INIT       :  $init" 'echo'
 menuItem "  BATTERY    :  $b_perc ∙ $b_stat ∙ Capacity, $b_cap" 'echo'
 menuItem "  BACKLIGHT  :  $backlight" 'echo'
 menuItem "  UPTIME     :  $uptime" 'echo'
-menuItem "  LOAD       :  $load" 'echo'
-menuItem "  WIFI       :  $interface ∙ $status ∙ $ssid" 'echo'
 menuEnd
 }
 

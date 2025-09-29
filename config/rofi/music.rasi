@@ -59,7 +59,7 @@ inputbar {
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
-    str:                         "";
+    str:                         " MPRIS";
     padding:                     10px 12px;
     border-radius:               10px;
     background-color:            @selected;
@@ -94,7 +94,7 @@ textbox {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     6;
+    columns:                     4;
     lines:                       1;
     cycle:                       true;
     scrollbar:                   false;

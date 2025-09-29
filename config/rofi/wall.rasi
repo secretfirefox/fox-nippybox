@@ -11,8 +11,8 @@
 configuration {
 	modi:                       "drun";
     show-icons:                 true;
-    display-drun:               "";
-	drun-display-format:        "{name}";
+	me-select-entry: "MousePrimary";
+	me-accept-entry: "!MousePrimary";
 }
 
 /*****----- Global Properties -----*****/
@@ -97,7 +97,7 @@ textbox-prompt-colon {
     padding:                     8px 10px;
     border-radius:               10px;
     expand:                      false;
-    str:                         "󰸉 Switch Window";
+    str:                         "󰸉 Wallpapers";
     background-color:            @selected;
     text-color:                  @background;
 }
@@ -116,14 +116,14 @@ entry {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     4;
+    columns:                     5;
     lines:                       2;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   true;
     layout:                      vertical;
     reverse:                     false;
-    fixed-height:                false;
+    fixed-height:                true;
     fixed-columns:               true;
     
     spacing:                     10px;
@@ -161,37 +161,9 @@ element normal.normal {
     background-color:            var(normal-background);
     text-color:                  var(normal-foreground);
 }
-element normal.urgent {
-    background-color:            var(urgent-background);
-    text-color:                  var(urgent-foreground);
-}
-element normal.active {
-    background-color:            var(active-background);
-    text-color:                  var(active-foreground);
-}
 element selected.normal {
     background-color:            var(selected-normal-background);
     text-color:                  var(selected-normal-foreground);
-}
-element selected.urgent {
-    background-color:            var(selected-urgent-background);
-    text-color:                  var(selected-urgent-background);
-}
-element selected.active {
-    background-color:            var(selected-active-background);
-    text-color:                  var(selected-active-foreground);
-}
-element alternate.normal {
-    background-color:            var(alternate-normal-background);
-    text-color:                  var(alternate-normal-foreground);
-}
-element alternate.urgent {
-    background-color:            var(alternate-urgent-background);
-    text-color:                  var(alternate-urgent-foreground);
-}
-element alternate.active {
-    background-color:            var(alternate-active-background);
-    text-color:                  var(alternate-active-foreground);
 }
 element-icon {
     background-color:            transparent;

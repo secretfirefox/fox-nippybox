@@ -6,10 +6,7 @@
 configuration {
 	modi:                       "run";
     show-icons:                 true;
-    display-drun:               "";
     display-run:                "";
-    display-filebrowser:        "";
-    display-window:             "";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
 }
@@ -98,7 +95,7 @@ inputbar {
     border-radius:               0px;
     border-color:                @border-colour;
     background-color:            transparent;
-    text-color:                  @foreground-colour;
+    text-color:                  @background-colour;
     children:                    [ "textbox-prompt-colon", "entry" ];
 }
 
@@ -112,7 +109,7 @@ textbox-prompt-colon {
     padding:                     8px 10px;
     border-radius:               10px;
     expand:                      false;
-    str:                         "";
+    str:                         " Run";
     background-color:            @selected;
     text-color:                  @background;
 }

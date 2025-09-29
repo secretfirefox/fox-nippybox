@@ -5,6 +5,8 @@
 /*****----- Configuration -----*****/
 configuration {
     show-icons:                 false;
+    me-select-entry: "MousePrimary";
+	me-accept-entry: "!MousePrimary";
 }
 
 /*****----- Global Properties -----*****/
@@ -59,7 +61,7 @@ inputbar {
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
-    str:                         "";
+    str:                         " Power";
     padding:                     10px 12px;
     border-radius:               10px;
     background-color:            @selected;

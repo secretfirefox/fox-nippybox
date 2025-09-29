@@ -4,22 +4,23 @@
 ## Modificado por Rapoelho, para incluir a opção desse Script ser um Pipemenu e para uso no Nippybox
 ## Script to take screenshots on Archcraft.
 
-
 # pipemenu
 pipemenu () {
 	MENUS_LIBDIR="$HOME/.config/openbox/"
-	if ! . "$MENUS_LIBDIR/pipebase.cfg" 2> /dev/null; then
+	if ! source "$MENUS_LIBDIR/pipebase.cfg" 2> /dev/null; then
 		echo $"Error: Failed to locate pipebase.cfg in $MENUS_LIBDIR" >&2
 		exit 1
 	fi
 
 	menuStart
-        menuItem 'Screenshot Now' "$0 --now"
-        menuItem 'Screenshot In 5s' "$0 --in5"
-        menuItem 'Screenshot In 10s' "$0 --in10"
-        menuItem 'Screenshot Area' "$0 --area"
-        menuItem 'Screenshot Window' "$0 --win"
-    menuEnd
+		menuSeparator 'Fullscreen'
+		menuItem 'Screenshot Now' "$0 --now"
+		menuItem 'Screenshot In 5s' "$0 --in5"
+		menuItem 'Screenshot In 10s' "$0 --in10"
+		menuSeparator 'Area'
+		menuItem 'Screenshot Area' "$0 --area"
+		menuItem 'Screenshot Window' "$0 --win"
+	menuEnd
 }
 
 # file
@@ -36,16 +37,9 @@ fi
 
 # notify and view screenshot
 notify_view () {
-	#notify_cmd_shot='dunstify -u low -h string:x-dunst-stack-tag:obscreenshot -i /usr/share/archcraft/icons/dunst/picture.png'
 	notify_cmd_shot='dunstify -u low -h string:x-dunst-stack-tag:obscreenshot'
-	${notify_cmd_shot} "Copied to clipboard."
 	paplay /usr/share/sounds/freedesktop/stereo/screen-capture.oga &>/dev/null &
-	viewnior ${dir}/"$file"
-	if [[ -e "$dir/$file" ]]; then
-		${notify_cmd_shot} "Screenshot Saved."
-	else
-		${notify_cmd_shot} "Screenshot Deleted."
-	fi
+	${notify_cmd_shot} "Screenshot Saved."
 }
 
 # copy screenshot to clipboard
@@ -56,7 +50,6 @@ copy_shot () {
 # countdown
 countdown () {
 	for sec in `seq $1 -1 1`; do
-		#dunstify -t 1000 -h string:x-dunst-stack-tag:screenshottimer -i /usr/share/archcraft/icons/dunst/timer.png "Taking shot in : $sec"
 		dunstify -t 1000 -h string:x-dunst-stack-tag:screenshottimer "Taking shot in : $sec"
 		sleep 1
 	done

@@ -17,6 +17,11 @@ obThemeFile="themerc"
 obThemeName="nippybox"
 obThemeFolder="$HOME/.themes/$obThemeName/openbox-3"
 
+### Tema da Plank
+plankFile="dock.theme"
+plankTheme="Nippy"
+plankFolder="$HOME/.local/share/plank/themes/$plankTheme"
+
 file=$HOME/.Xresources
 
 ## Obtendo as Cores do Tema
@@ -145,6 +150,72 @@ EOF
 	pkill dunst && dunst & > /dev/null
 }
 
+hex2rgb () {
+		hex=$1
+		first="${hex:0:1}"
+
+		if [ "#" = "$first" ]; then
+			hex="${hex:1:6}"
+		fi
+
+		hex_r="${hex:0:2}"
+		hex_g="${hex:2:2}"
+		hex_b="${hex:4:2}"
+
+		rgba_r=`echo $((0x${hex_r}))`
+		rgba_g=`echo $((0x${hex_g}))`
+		rgba_b=`echo $((0x${hex_b}))`
+
+		echo "$rgba_r;;$rgba_g;;$rgba_b;;255"
+}
+
+## Função para Colorir a Plank
+plank_color() {
+	
+	plankBadge="$(hex2rgb $(get_colors 1))"
+	plankBG="$(hex2rgb ${get_colors_bg})"
+	
+		{
+	cat <<EOF
+[PlankTheme]
+TopRoundness=8
+BottomRoundness=0
+LineWidth=2
+OuterStrokeColor=${plankBadge}
+FillStartColor=${plankBG}
+FillEndColor=${plankBG}
+InnerStrokeColor=${plankBG}
+
+[PlankDockTheme]
+HorizPadding=0
+TopPadding=-7
+BottomPadding=1
+ItemPadding=3
+IndicatorSize=5
+IconShadowSize=1
+UrgentBounceHeight=1.6666666666666667
+LaunchBounceHeight=0.625
+FadeOpacity=1
+ClickTime=300
+UrgentBounceTime=600
+LaunchBounceTime=600
+ActiveTime=300
+SlideTime=300
+FadeTime=250
+HideTime=150
+GlowSize=30
+GlowTime=10000
+GlowPulseTime=2000
+UrgentHueShift=0
+ItemMoveTime=450
+CascadeHide=true
+BadgeColor=${plankBadge}
+EOF
+} > $plankFile
+mv $plankFile $plankFolder
+
+}
+
 ## Função para Colorir o Rofi
 rofi_color() {
 	{
@@ -175,8 +246,8 @@ menu.border.color:              #${get_colors_bg}
 menu.separator.color:           #${get_colors_bg}
 
 menu.title.bg:                  flat solid
-menu.title.bg.color:            #$(get_colors 1)
-menu.title.text.color:          #$(get_colors 7)
+menu.title.bg.color:            #${get_colors_bg}
+menu.title.text.color:          #$(get_colors 1)
 menu.title.text.justify:        Center
 
 menu.items.bg:                  flat solid
@@ -187,10 +258,10 @@ menu.items.disabled.text.color: #$(get_colors 1)
 
 menu.items.active.bg:           flat solid
 menu.items.active.bg.color:     #$(get_colors 4)
-menu.items.active.text.color:   #${get_colors_bg}
+menu.items.active.text.color:   #${get_colors_fg}
 
 # Active window
-window.active.border.color:                           #$(get_colors 4)
+window.active.border.color:                           #$(get_colors 1)
 
 window.active.title.bg:                               solid flat
 window.active.title.bg.color:                         #1e1f29
@@ -243,7 +314,7 @@ window.active.button.toggled.pressed.bg:              parentrelative
 window.active.button.toggled.pressed.image.color:     #$(get_colors 5)
 
 # Inactive window
-window.inactive.border.color:                         #$(get_colors 5)
+window.inactive.border.color:                         #$(get_colors 4)
 
 window.inactive.title.bg:                             flat solid
 window.inactive.title.bg.color:                       #1e1f29
@@ -337,11 +408,11 @@ padding.width:               15
 padding.height:              10
 window.handle.width:         0
 window.client.padding.width: 0
-window.label.text.justify:   center
+window.label.text.justify:   right
 
 EOF
 	} > $obThemeFile
-	cp $obThemeFile $obThemeFolder
+	mv $obThemeFile $obThemeFolder
 }
 
 check_theme(){
@@ -353,11 +424,7 @@ check_theme(){
 
 ## Verificando a Entrada do Comando
 if [[ -z "$1" ]]; then
-
-	imgFolder=$(xdg-user-dir PICTURES)
-	cd $imgFolder
-
-	wallpaper="$(yad --file --image-filter)"
+	echo "ERRO: Wallpaper não selecionado"
 else
 	wallpaper="$1"
 fi 
@@ -377,6 +444,8 @@ cp ~/.cache/wal/colors.Xresources ~/.Xresources
 ## Executando as Funções
 cd ~/.local/bin
 fill_color
+
+plank_color
 
 echo "## Colorindo as Notificações"
 dunst_color
