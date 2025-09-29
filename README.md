@@ -1,3 +1,5 @@
+# Esta é uma adaptação do Nippybox feito por rapoelho para o Artix Linux. 
+
 # Nippybox, um Arch com Openbox bem opinativo
 Eu estava usando o Archcraft, uma distro Linux com a base que gosto (Arch) e um dos ambientes que eu mais gosto de usar (Openbox) e até que gostei dessa experiência.
 
